@@ -6,6 +6,7 @@ import { hero, site } from '../content.js'
 import { Button, HandNote, Paper, Polaroid, Sticky } from '../ds/index.jsx'
 import { onReady } from '../lib/motion.js'
 import useMedia from '../lib/useMedia.js'
+import { useGoTo } from '../lib/sectionRoutes.js'
 
 const NAME_KEY = 'cf-visitor-name'
 const SPOTS = [[0.04, 0.2], [0.95, 0.22], [0.44, 0.93], [0.9, 0.9], [0.06, 0.86], [0.62, 0.96], [0.34, 0.46]]
@@ -37,6 +38,7 @@ function NameSlot() {
 
 export default function ColdOpen() {
   const ref = useRef(null)
+  const goTo = useGoTo()
   // Stacked on phones: no hero string, so it never crosses the text or the photo.
   const stacked = useMedia('(max-width: 1023px)')
   useEffect(() => onReady(() => ref.current?.classList.add('in')), [])
@@ -66,7 +68,7 @@ export default function ColdOpen() {
           </h1>
           <p className="co-role">{hero.role}</p>
           <div className="co-ctas">
-            <Button href="#about" data-cursor="investigate">{hero.cta} ↓</Button>
+            <Button href="/about" onClick={goTo('about')} data-cursor="investigate">{hero.cta} ↓</Button>
             <Button href={`mailto:${site.email}`} variant="secondary" data-cursor="say hi">email me</Button>
             <Button href={site.resume} variant="ghost" target="_blank" rel="noreferrer" data-cursor="download">résumé (pdf)</Button>
           </div>

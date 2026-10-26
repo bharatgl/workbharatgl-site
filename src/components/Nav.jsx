@@ -4,8 +4,9 @@ import { Button } from '../ds/index.jsx'
 import HandText, { primeStrokes } from './HandText.jsx'
 import Roll from './Roll.jsx'
 import { gsap, onReady, reducedMotion } from '../lib/motion.js'
+import { SECTIONS, useGoTo, useUrlFollowsScroll } from '../lib/sectionRoutes.js'
 
-const IDS = nav.map((n) => n.href.slice(1))
+const IDS = ['top', ...SECTIONS] // 'top' is watched so the URL goes back to / at the top
 
 function useActive() {
   const [active, setActive] = useState('')
@@ -22,6 +23,8 @@ function useActive() {
 
 export default function Nav() {
   const active = useActive()
+  const goTo = useGoTo()
+  useUrlFollowsScroll(active)
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -61,13 +64,13 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
       <div className="nav-bar">
-        <a href="#top" className="nav-id" onClick={() => setOpen(false)} data-cursor="home">
+        <a href="/" className="nav-id" onClick={goTo('top', () => setOpen(false))} data-cursor="home">
           <HandText ref={logo} text="bharat" weight={90} wobble={0.4} seed={3} align="left" maxWidth={3200} label={site.name} className="nav-logo" />
           <span className="nav-case cf-label">case #001</span>
         </a>
         <nav className="nav-links" aria-label="Sections">
           {nav.map((n) => (
-            <a key={n.href} href={n.href} className={active === n.href.slice(1) ? 'is-active' : ''}>
+            <a key={n.href} href={n.href} onClick={goTo(n.href.slice(1))} className={active === n.href.slice(1) ? 'is-active' : ''} aria-current={active === n.href.slice(1) ? 'location' : undefined}>
               <Roll>{n.label}</Roll>
             </a>
           ))}
@@ -87,7 +90,7 @@ export default function Nav() {
       <div id="menu" className="menu" aria-hidden={!open}>
         <nav aria-label="Menu">
           {nav.map((n, i) => (
-            <a key={n.href} href={n.href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} style={{ '--i': i, '--t': `${(i % 2 ? 1 : -1) * (1 + i * 0.4)}deg` }}>
+            <a key={n.href} href={n.href} onClick={goTo(n.href.slice(1), () => setOpen(false))} tabIndex={open ? 0 : -1} style={{ '--i': i, '--t': `${(i % 2 ? 1 : -1) * (1 + i * 0.4)}deg` }}>
               <span className="menu-idx cf-label">exhibit {String.fromCharCode(65 + i)}</span>
               <span className="cf-display">{n.label}</span>
             </a>

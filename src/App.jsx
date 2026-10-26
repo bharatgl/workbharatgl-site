@@ -15,8 +15,11 @@ import OffRecord from './sections/OffRecord.jsx'
 import Interrogation from './sections/Interrogation.jsx'
 import Verdict from './sections/Verdict.jsx'
 import { ScrollTrigger, onReady } from './lib/motion.js'
+import { useSectionScroll } from './lib/sectionRoutes.js'
 
 export default function App() {
+  useSectionScroll() // /skills, /projects… scroll to their section
+
   // Scroll animations measure layout, so re-measure once fonts and the intro are done.
   useEffect(() => {
     document.fonts?.ready.then(() => ScrollTrigger.refresh())

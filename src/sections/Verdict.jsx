@@ -5,8 +5,10 @@ import { site, verdict } from '../content.js'
 import { Button, Chapter, Stamp } from '../ds/index.jsx'
 import { gsap, useGSAP, MQ } from '../lib/motion.js'
 import useInView from '../lib/useInView.js'
+import { useGoTo } from '../lib/sectionRoutes.js'
 
 export default function Verdict() {
+  const goTo = useGoTo()
   const [stampRef, inView] = useInView(0.5)
   const [copied, setCopied] = useState('')
   const foot = useRef(null)
@@ -92,7 +94,7 @@ export default function Verdict() {
         <div className="cf-wrap footer-row cf-label">
           <span>© {new Date().getFullYear()} {site.name.toLowerCase()} · handmade with react, gsap and a lot of chai</span>
           <a href="/design-system.html">the casefile design system ↗</a>
-          <a href="#top">back to the start ↑</a>
+          <a href="/" onClick={goTo('top')}>back to the start ↑</a>
         </div>
         <div className="unfold" aria-hidden="true">
           <p className="unfold-word cf-display">

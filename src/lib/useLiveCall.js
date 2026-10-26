@@ -13,11 +13,24 @@ const GOODBYE_AT = 25 // seconds before the time limit when he starts saying goo
 const GOODBYE_WAIT_MS = 15_000 // never wait longer than this for his goodbye to finish
 // what he's asked to say when a call has to end; he says it in his own words, then the call hangs up
 const GOODBYES = {
-  time: '[the call is about to hit its time limit] In one or two short, warm lines, tell the visitor it’s time for you to go, and that they can call you again any time to keep talking. Don’t ask a question.',
-  idle: '[the visitor has gone quiet for a while] In one short, warm line, say it seems they’ve stepped away, so you’ll hang up for now, and they can call you again any time. Don’t ask a question.',
-  dropped: '[the connection is about to end] In one short line, say you have to drop off now and they can call you again any time. Don’t ask a question.',
+  time: '[the call is about to hit its time limit] In one or two short, warm lines, tell the visitor it’s time for you to go, and that they can call you again any time to keep talking. Don’t ask a question. Then call end_call.',
+  idle: '[the visitor has gone quiet for a while] In one short, warm line, say it seems they’ve stepped away, so you’ll hang up for now, and they can call you again any time. Don’t ask a question. Then call end_call.',
+  dropped: '[the connection is about to end] In one short line, say you have to drop off now and they can call you again any time. Don’t ask a question. Then call end_call.',
 }
-const HISTORY_TURNS = 16 // how much of the earlier conversation a new call remembers
+const HISTORY_TURNS = 16
+// A finished turn of his that signs off (and isn't a question) ends the call, even if he forgot end_call.
+const SIGN_OFF = /\b(bye|goodbye|take care|talk soon|see you|catch you later|have a good (one|day|evening)|signing off)\b/i
+const ECHO_TAIL = 0.6 // seconds after his audio stops during which the mic may still hold his echo
+// He hangs up himself (like ForgeFit's agent tools): one goodbye, then this tool ends the call.
+const END_CALL_TOOL = {
+  functionDeclarations: [
+    {
+      name: 'end_call',
+      description: 'Hang up this call. Use it right after you have said one short goodbye: when the visitor is done (they say bye, thanks that’s all, gotta go) or when you were asked to wrap up the call.',
+      parameters: { type: 'OBJECT', properties: {} },
+    },
+  ],
+} // how much of the earlier conversation a new call remembers
 
 // Mic -> 16 kHz Int16 chunks (~40 ms each), resampled in the audio thread.
 const MIC_WORKLET = `
@@ -189,6 +202,20 @@ export default function useLiveCall({ onTurn } = {}) {
       return
     }
     if (msg.goAway) return wrapUp('dropped')
+    if (msg.toolCall?.functionCalls?.length) {
+      const calls = msg.toolCall.functionCalls
+      sendJson({ toolResponse: { functionResponses: calls.map((f) => ({ id: f.id, name: f.name, response: { result: 'ok' } })) } })
+      if (calls.some((f) => f.name === 'end_call')) {
+        // he's said goodbye: stop listening, let the last words play out, then hang up (timer in start)
+        c.wrapping = c.wrapping || 'bye'
+        c.wrapAt = c.wrapAt || Date.now()
+        c.byeAt = Date.now()
+        c.byeDone = true
+        c.hangUp = true
+        setStatus('ending')
+      }
+      return
+    }
     const sc = msg.serverContent
     if (!sc) return
 
@@ -221,6 +248,7 @@ export default function useLiveCall({ onTurn } = {}) {
         c.botDone = false
       }
       c.bot += said
+      c.lastBot = c.bot
       setBotText(c.bot.trim())
     }
     for (const part of sc.modelTurn?.parts ?? []) {
@@ -236,6 +264,16 @@ export default function useLiveCall({ onTurn } = {}) {
     if (sc.turnComplete) {
       if (c.byeAt) c.byeDone = true
       c.awaiting = false
+      // he signed off: let it play out, then hang up (stops a goodbye <-> echo loop)
+      const last = (c.lastBot || '').trim()
+      if (!c.hangUp && SIGN_OFF.test(last) && !/\?["”’)]*$/.test(last)) {
+        c.wrapping = c.wrapping || 'bye'
+        c.wrapAt = c.wrapAt || Date.now()
+        c.byeAt = Date.now()
+        c.byeDone = true
+        c.hangUp = true
+        setStatus('ending')
+      }
     }
   }
 
@@ -339,7 +377,7 @@ export default function useLiveCall({ onTurn } = {}) {
           // Echo guard: while he's talking, laptop speakers leak his voice into the mic, and Gemini would
           // hear that as the visitor interrupting and cut him off. So while he talks, only pass the mic
           // through once it's clearly louder than the echo for ~120 ms (a real barge-in); else send silence.
-          const talking = c.ctx.currentTime < (c.nextTime || 0)
+          const talking = c.ctx.currentTime < (c.nextTime || 0) + ECHO_TAIL
           if (!talking) c.barge = 0
           else c.barge = mic > 0.035 + (c.outLevel || 0) * 0.6 ? (c.barge || 0) + 1 : 0
           const pass = !mutedRef.current && !c.wrapping && (!talking || c.barge >= 3)
@@ -362,6 +400,7 @@ export default function useLiveCall({ onTurn } = {}) {
                 // 3.1 Live takes a thinking level; 3.8 Live rejects it
                 ...(/3\.1/.test(tok.model) ? { thinkingConfig: { thinkingLevel: 'LOW' } } : {}),
               },
+              tools: [END_CALL_TOOL],
               historyConfig: { initialHistoryInClientContent: true }, // lets a new call start from the earlier transcript
               contextWindowCompression: { slidingWindow: {} },
               inputAudioTranscription: {},
@@ -402,7 +441,8 @@ export default function useLiveCall({ onTurn } = {}) {
           sendJson({ realtimeInput: { text: GOODBYES[c.wrapping] } })
         }
         // hang up once the goodbye has been said (or if it takes too long)
-        if (c.byeAt && ((c.byeDone && !talking) || Date.now() - c.byeAt > GOODBYE_WAIT_MS || left === 0)) end(c.wrapping)
+        const settled = !talking && (!c.hangUp || Date.now() - c.byeAt > 1500) // his last words may still be arriving
+        if (c.byeAt && ((c.byeDone && settled) || Date.now() - c.byeAt > GOODBYE_WAIT_MS || left === 0)) end(c.wrapping)
       }, 1000)
       watch(c)
       return true
