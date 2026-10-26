@@ -49,21 +49,26 @@ A cartoon detective who talks with visitors about Bharat, out loud or by text.
 - **No keys at all:** still works. Offline answers from `src/content.js` (`src/lib/inspectorBrain.js`) and the browser's own
   speech (`src/lib/useVoice.js`). If live voice fails for any reason, the stage falls back to this quietly.
 
-## Deploy (Vercel, free)
-1. Push to GitHub:
-   ```bash
-   git init && git add . && git commit -m "init site"
-   gh repo create workbharatgl-site --public --source=. --push
-   ```
-2. vercel.com → Add New → Project → import the repo. Preset: **Vite** (build `npm run build`, output `dist`). Deploy.
-3. Project → Settings → Domains → add `workbharatgl.online` and `www.workbharatgl.online`.
-4. At your registrar's DNS panel, add what Vercel shows, usually:
-   | Type  | Name | Value                |
-   |-------|------|----------------------|
-   | A     | @    | 76.76.21.21          |
-   | CNAME | www  | cname.vercel-dns.com |
-   Remove any parking records on `@`/`www` first. HTTPS is automatic once DNS propagates.
+## Deploy (GCP: Cloud Run + Firebase Hosting)
+```text
+visitor ──► Firebase Hosting (Google CDN, workbharatgl.online, HTTPS)
+              ├─ the site (dist/)                     served from the CDN edge
+              └─ /api/*  ──► Cloud Run "workbharatgl-site" (asia-south1, server.js)
+                               └─ GEMINI_API_KEY / ANTHROPIC_API_KEY from Secret Manager
+voice audio: visitor's browser ◄──► Gemini Live directly (never through Cloud Run)
+```
+Cloud Run scales to zero when idle and is capped at 5 instances, so cost tracks real use.
 
-Every `git push` redeploys. Netlify / Cloudflare Pages work the same way (build `npm run build`, output `dist`).
+1. Install the Google Cloud CLI (cloud.google.com/sdk) and sign in: `gcloud auth login`.
+2. Deploy (stores your keys from `.env` in Secret Manager without printing them, builds with Cloud Build,
+   deploys Cloud Run, then the site to Firebase Hosting):
+   ```bash
+   GCP_PROJECT_ID=your-project-id ./scripts/deploy-gcp.sh
+   ```
+3. Domain, once: Firebase console → Hosting → Add custom domain → `workbharatgl.online` (and `www`),
+   then add the DNS records it shows at your registrar. HTTPS is issued automatically.
+
+Run the production server locally: `npm run build && node --env-file=.env server.js` (port 8080).
+Rotating a key: `printf '%s' NEW_KEY | gcloud secrets versions add gemini-api-key --data-file=-`, then redeploy.
 
 Font credit: handwritten notes use EMS Felix (SIL Open Font License), `src/assets/hand-font.svg`.

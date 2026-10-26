@@ -37,7 +37,8 @@ export default async function handler(req, res) {
   if (!ai) return send(res, 503, { error: 'live_unavailable' })
 
   const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket?.remoteAddress || 'unknown'
-  const local = /^(127\.0\.0\.1|::1|::ffff:127\.0\.0\.1)$/.test(ip) // dev server: don't throttle local testing
+  // local dev only: never on Cloud Run (K_SERVICE is set there), where X-Forwarded-For can be faked
+  const local = !process.env.K_SERVICE && process.env.NODE_ENV !== 'production' && /^(127\.0\.0\.1|::1|::ffff:127\.0\.0\.1)$/.test(ip)
   if (!local && rateLimited(ip)) return send(res, 429, { error: 'slow_down' })
 
   const now = Date.now()

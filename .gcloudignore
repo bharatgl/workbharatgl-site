@@ -1,0 +1,11 @@
+# What `gcloud run deploy --source .` uploads to Cloud Build (never the .env with your key)
+node_modules/
+dist/
+.git/
+.env
+.env.*
+!.env.example
+.vercel/
+.firebase/
+.claude/
+.DS_Store
