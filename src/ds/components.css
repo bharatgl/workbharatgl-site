@@ -1,0 +1,159 @@
+/* ==========================================================================
+   CASEFILE design system: base + components
+   ========================================================================== */
+
+/* ---- base ---- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
+html.is-intro, html.menu-open { overflow: hidden; }
+body {
+  color: var(--cf-text); font-family: var(--cf-body); font-size: var(--cf-t-body); line-height: 1.65;
+  overflow-x: clip; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  /* dark cork: speckles + grain + vignette */
+  background-color: var(--cf-board);
+  background-image:
+    radial-gradient(rgba(255, 228, 180, .05) 1px, transparent 1.4px),
+    radial-gradient(rgba(0, 0, 0, .35) 1px, transparent 1.6px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .4 0 0 0 0 .25 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 7px 7px, 11px 11px, 240px 240px;
+  background-position: 0 0, 3px 5px, 0 0;
+}
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 45%, rgba(0, 0, 0, .6)); }
+#root { position: relative; z-index: 1; }
+img, svg, iframe { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; background: none; border: 0; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--cf-yellow); outline-offset: 3px; }
+::selection { background: var(--cf-yellow); color: var(--cf-ink); }
+html.has-cursor, html.has-cursor * { cursor: none !important; }
+
+/* ---- type ---- */
+.cf-display { font-family: var(--cf-display); font-weight: 400; text-transform: uppercase; line-height: .9; letter-spacing: .005em; }
+.cf-type { font-family: var(--cf-type); }
+.cf-marker { font-family: var(--cf-marker); font-weight: 400; }
+.cf-label { font-family: var(--cf-type); font-size: var(--cf-t-label); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.cf-wrap { width: min(100% - var(--cf-gutter) * 2, var(--cf-max)); margin-inline: auto; }
+.cf-section { position: relative; padding-block: var(--cf-section-y); }
+.cf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.cf-muted { color: var(--cf-text-2); }
+
+/* ---- Roll (letter swap on hover) ---- */
+.roll { display: inline-flex; }
+.roll-ch { display: inline-flex; flex-direction: column; height: 1.3em; line-height: 1.3; overflow: clip; }
+.roll-ch > span { transition: transform var(--cf-d3) var(--cf-ease); transition-delay: calc(var(--i) * 14ms); }
+@media (hover: hover) { a:hover .roll-ch > span, button:hover .roll-ch > span { transform: translateY(-100%); } }
+
+/* ---- Paper: any pinned/taped scrap ---- */
+.cf-paper {
+  --tilt: 0deg;
+  position: relative; background: var(--cf-paper); color: var(--cf-ink);
+  box-shadow: var(--cf-shadow); transform: rotate(var(--tilt));
+  transition: transform var(--cf-d3) var(--cf-ease), box-shadow var(--cf-d3);
+}
+.cf-paper::after { /* paper fibre + slight aging */
+  content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .55;
+  background: radial-gradient(ellipse at 20% 0%, rgba(120, 90, 40, .12), transparent 60%), radial-gradient(ellipse at 100% 100%, rgba(120, 90, 40, .16), transparent 55%);
+}
+.cf-paper--news { background: var(--cf-news); }
+.cf-paper--manila { background: var(--cf-manila); }
+.cf-paper--white { background: var(--cf-white); }
+/* Torn paper: only the paper layer gets the ragged clip, so pins and tape on top stay whole. */
+.cf-paper.is-torn { --paper-bg: var(--cf-paper); background: none; box-shadow: none; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .55)); }
+.cf-paper--news.is-torn { --paper-bg: var(--cf-news); }
+.cf-paper--manila.is-torn { --paper-bg: var(--cf-manila); }
+.cf-paper--white.is-torn { --paper-bg: var(--cf-white); }
+.cf-paper.is-torn::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--paper-bg); clip-path: var(--torn); }
+.cf-paper.is-torn::after { clip-path: var(--torn); }
+@media (hover: hover) { .cf-paper.is-lift:hover { transform: rotate(0deg) translateY(-6px) scale(1.015); box-shadow: var(--cf-shadow-lift); z-index: 5; } }
+
+/* lined index card */
+.cf-paper--lined { background-image: linear-gradient(transparent 31px, rgba(36, 73, 184, .18) 31px, rgba(36, 73, 184, .18) 32px, transparent 32px), linear-gradient(90deg, transparent 38px, rgba(229, 72, 60, .35) 38px, rgba(229, 72, 60, .35) 39px, transparent 39px); background-size: 100% 32px, 100% 100%; }
+
+/* ---- Tape & pin ---- */
+.cf-tape { position: absolute; z-index: 3; width: 92px; height: 26px; background: var(--cf-tape); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); clip-path: polygon(2% 0, 98% 6%, 100% 50%, 97% 100%, 3% 94%, 0 50%); }
+.cf-tape--top { top: -12px; left: 50%; translate: -50% 0; rotate: -3deg; }
+.cf-tape--tl { top: -8px; left: -22px; rotate: -38deg; }
+.cf-tape--tr { top: -8px; right: -22px; rotate: 38deg; }
+.cf-pin { position: absolute; z-index: 4; top: -9px; left: 50%; translate: -50% 0; width: 20px; height: 20px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff8a7f, var(--cf-red) 45%, #7d1610 100%); box-shadow: 0 4px 5px rgba(0, 0, 0, .55), inset 0 -2px 3px rgba(0, 0, 0, .3); }
+.cf-pin::after { content: ''; position: absolute; left: 8px; top: 15px; width: 3px; height: 10px; background: linear-gradient(#999, #555); transform: rotate(18deg); z-index: -1; opacity: .7; }
+
+/* ---- Polaroid ---- */
+.cf-polaroid { padding: 12px 12px 54px; background: var(--cf-white); }
+.cf-polaroid-img { position: relative; overflow: hidden; background: #1b1d22; aspect-ratio: var(--ratio, 4 / 5); }
+.cf-polaroid-img img { width: 100%; height: 100%; object-fit: cover; }
+.cf-polaroid-cap { position: absolute; left: 12px; right: 12px; bottom: 10px; font-family: var(--cf-script); font-weight: 700; font-size: 1.5rem; line-height: 1.1; color: var(--cf-ink); text-align: center; }
+
+/* ---- Sticky note ---- */
+.cf-sticky { padding: 22px 20px 26px; background: linear-gradient(170deg, #ffe16b, var(--cf-yellow) 60%, #f5c427); color: var(--cf-ink); font-family: var(--cf-marker); font-size: 1.25rem; line-height: 1.25; box-shadow: 0 2px 2px rgba(0, 0, 0, .25), 0 16px 24px -10px rgba(0, 0, 0, .6); clip-path: polygon(0 0, 100% 0, 100% 88%, 92% 100%, 0 100%); }
+.cf-sticky::after { content: ''; position: absolute; right: 0; bottom: 0; width: 8%; height: 12%; background: linear-gradient(315deg, transparent 50%, rgba(0, 0, 0, .18) 50%); }
+
+/* ---- Stamp ---- */
+.cf-stamp {
+  --c: var(--cf-red-ink);
+  display: inline-block; white-space: nowrap; padding: 6px 14px 4px; border: 3px solid var(--c); border-radius: 6px; color: var(--c);
+  font-family: var(--cf-display); font-size: 1.35rem; letter-spacing: .08em; text-transform: uppercase; line-height: 1;
+  mix-blend-mode: multiply; opacity: 0; transform: rotate(-9deg) scale(2.2);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80'%3E%3Cfilter id='r'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -2.4 1.7'/%3E%3C/filter%3E%3Crect width='160' height='80' filter='url(%23r)'/%3E%3C/svg%3E");
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80'%3E%3Cfilter id='r'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -2.4 1.7'/%3E%3C/filter%3E%3Crect width='160' height='80' filter='url(%23r)'/%3E%3C/svg%3E");
+}
+.cf-stamp--board { --c: var(--cf-red); mix-blend-mode: normal; }
+.cf-stamp--yellow { --c: var(--cf-yellow); mix-blend-mode: normal; }
+.cf-stamp.is-on { animation: cf-thunk .5s var(--cf-snap) forwards; }
+@keyframes cf-thunk { 0% { opacity: 0; transform: rotate(-9deg) scale(2.2); } 60% { opacity: 1; transform: rotate(-9deg) scale(.94); } 100% { opacity: .9; transform: rotate(-9deg) scale(1); } }
+
+/* ---- Evidence tag ---- */
+.cf-etag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 22px; background: var(--cf-manila); color: var(--cf-ink); font-family: var(--cf-type); font-weight: 700; font-size: .875rem; line-height: 1.3; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%); position: relative; box-shadow: 0 6px 10px -6px rgba(0, 0, 0, .6); }
+.cf-etag::before { content: ''; position: absolute; left: 9px; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--cf-board); }
+.cf-etag--paper { background: var(--cf-paper); }
+.cf-etag--yellow { background: var(--cf-yellow); }
+
+/* ---- Button: label-maker strips & paper tags ---- */
+.cf-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px;
+  font-family: var(--cf-body); font-weight: 700; font-size: 1rem; letter-spacing: .01em; isolation: isolate;
+  transition: transform var(--cf-d2) var(--cf-pop), box-shadow var(--cf-d2);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .35), 0 12px 20px -10px rgba(0, 0, 0, .7);
+}
+.cf-btn svg { width: 18px; height: 18px; flex: none; }
+.cf-btn--primary { background: var(--cf-yellow); color: var(--cf-ink); transform: rotate(-1.2deg); }
+.cf-btn--secondary { background: var(--cf-paper); color: var(--cf-ink); transform: rotate(.8deg); }
+.cf-btn--ghost { min-height: 44px; padding: 0 2px; box-shadow: none; color: var(--cf-yellow); background: linear-gradient(var(--cf-yellow), var(--cf-yellow)) 0 92% / 100% 2px no-repeat; }
+.cf-btn--primary::before, .cf-btn--secondary::before { /* tape stub */
+  content: ''; position: absolute; top: -8px; left: 14px; width: 34px; height: 16px; background: var(--cf-tape); rotate: -8deg; }
+.cf-btn:active { transform: scale(.96); }
+@media (hover: hover) {
+  .cf-btn--primary:hover, .cf-btn--secondary:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 0 2px 0 rgba(0, 0, 0, .3), 0 20px 28px -12px rgba(0, 0, 0, .8); }
+  .cf-btn--ghost:hover { color: var(--cf-text); }
+}
+
+/* ---- Marker circle & highlight ---- */
+.cf-circled { position: relative; display: inline-block; }
+/* Generous margin so the loop goes around the text instead of through it. */
+.cf-circled { padding: 4px 12px; margin: -4px -12px; }
+.cf-circle { position: absolute; left: -8%; top: -16%; width: 116%; max-width: none; height: 132%; overflow: visible; pointer-events: none; }
+.cf-circle path { fill: none; stroke: var(--c, var(--cf-red)); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 520; stroke-dashoffset: 520; transition: stroke-dashoffset 1s var(--cf-ease); }
+.cf-circled.is-in .cf-circle path { stroke-dashoffset: 0; }
+.cf-hl { background: linear-gradient(100deg, rgba(255, 210, 63, 0) 0 2%, rgba(255, 210, 63, .9) 3% 96%, rgba(255, 210, 63, 0) 98%) 0 70% / 0% 62% no-repeat; transition: background-size 1s var(--cf-ease) .2s; padding: 0 .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* The band covers the full letter height, so dark ink never sits on the dark board. */
+.cf-hl { color: inherit; background-position: 0 55%; padding: .02em .16em 0; margin: 0 -.04em; transition: background-size 1s var(--cf-ease) .2s, color .3s .45s; }
+.is-in .cf-hl, .cf-hl.is-in { background-size: 100% 100%; color: var(--cf-ink); }
+
+/* ---- Chapter head ---- */
+.cf-chapter { display: grid; gap: 12px; margin-bottom: clamp(40px, 7vh, 72px); max-width: 860px; }
+.cf-chapter-tag { justify-self: start; }
+.cf-chapter-title { font-size: var(--cf-t-1); }
+.cf-chapter-sub { color: var(--cf-text-2); max-width: 60ch; font-size: 1.0625rem; }
+
+/* ---- Reveal ---- */
+.cf-reveal { opacity: 0; transform: translateY(30px) rotate(var(--r0, 0deg)); transition: opacity .8s var(--cf-ease), transform .9s var(--cf-pop); transition-delay: calc(var(--d, 0) * 90ms); }
+.cf-reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cf-stamp { opacity: .9; transform: rotate(-9deg); animation: none !important; }
+  .cf-reveal { opacity: 1; transform: none; transition: none; }
+  .cf-circle path { stroke-dashoffset: 0; transition: none; }
+  .cf-hl { background-size: 100% 62%; transition: none; }
+}

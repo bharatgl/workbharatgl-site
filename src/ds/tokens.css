@@ -1,0 +1,68 @@
+/* ==========================================================================
+   CASEFILE design system: tokens
+   A detective's evidence board at night: dark cork, cream paper, red string,
+   yellow sticky notes and the odd bat in the sky.
+   ========================================================================== */
+:root {
+  /* ---- the board ---- */
+  --cf-board: #17120e;
+  --cf-board-2: #211912;
+  --cf-board-3: #2c2219;
+  --cf-night: #0c0e15;
+
+  /* ---- paper ---- */
+  --cf-paper: #f1e9d6;     /* index cards, files */
+  --cf-news: #e6dcc3;      /* newsprint clippings */
+  --cf-manila: #d8c49a;    /* folders, tags */
+  --cf-white: #fbf8f1;     /* polaroid frames */
+
+  /* ---- ink ---- */
+  --cf-ink: #15120e;       /* text on paper · 15.4:1 */
+  --cf-ink-2: #5a5246;     /* secondary on paper · 6.4:1 */
+  --cf-text: #f3ecdc;      /* text on the board · 15.8:1 */
+  --cf-text-2: #c2b7a2;    /* secondary on the board · 9.4:1 */
+  --cf-text-3: #9a8f7b;    /* meta on the board · 5.8:1 */
+
+  /* ---- signal colors ---- */
+  --cf-red: #e5483c;       /* red string, stamps, pins (on board) */
+  --cf-red-ink: #b8291f;   /* red on paper · 5.1:1 */
+  --cf-yellow: #ffd23f;    /* sticky notes, highlighter, the signal */
+  --cf-blue: #2449b8;      /* ballpoint annotations on paper */
+  --cf-glow: rgba(255, 210, 63, 0.4);
+
+  /* ---- type ---- */
+  --cf-display: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --cf-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --cf-type: 'Courier Prime', 'Courier New', monospace;
+  --cf-marker: 'Permanent Marker', 'Comic Sans MS', cursive;
+  --cf-script: 'Caveat', cursive;
+
+  --cf-t-hero: clamp(3.2rem, min(11vw, 14svh), 9.5rem);
+  --cf-t-1: clamp(2.6rem, 6.4vw, 5.4rem);
+  --cf-t-2: clamp(1.6rem, 3vw, 2.4rem);
+  --cf-t-3: clamp(1.2rem, 1.6vw, 1.45rem);
+  --cf-t-body: clamp(1rem, 0.3vw + 0.92rem, 1.125rem);
+  --cf-t-small: 0.9375rem;
+  --cf-t-label: 0.8125rem;
+
+  /* ---- space ---- */
+  --cf-s1: 4px; --cf-s2: 8px; --cf-s3: 12px; --cf-s4: 16px; --cf-s5: 24px;
+  --cf-s6: 32px; --cf-s7: 48px; --cf-s8: 64px; --cf-s9: 96px; --cf-s10: 128px;
+  --cf-gutter: clamp(18px, 4.5vw, 64px);
+  --cf-section-y: clamp(80px, 13vh, 150px);
+  --cf-max: 1240px;
+
+  /* ---- paper physics ---- */
+  --cf-shadow: 0 1px 1px rgba(0, 0, 0, .35), 0 10px 22px -8px rgba(0, 0, 0, .7), 0 28px 50px -24px rgba(0, 0, 0, .6);
+  --cf-shadow-lift: 0 2px 2px rgba(0, 0, 0, .3), 0 22px 40px -12px rgba(0, 0, 0, .75);
+  --cf-tape: rgba(240, 228, 190, .62);
+
+  /* ---- motion ---- */
+  --cf-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --cf-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --cf-snap: cubic-bezier(0.7, 0, 0.2, 1);
+  --cf-d1: 140ms; --cf-d2: 260ms; --cf-d3: 520ms; --cf-d4: 900ms;
+
+  /* ---- layers ---- */
+  --cf-z-fx: 4; --cf-z-nav: 50; --cf-z-intro: 100; --cf-z-cursor: 1000;
+}
