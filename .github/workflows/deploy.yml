@@ -1,0 +1,80 @@
+# Auto-deploy: every push to main builds the site, deploys the API to Cloud Run and the site to
+# Firebase Hosting. Pull requests only build. GitHub signs in to GCP with Workload Identity Federation
+# (no stored Google keys); the Gemini key stays in Secret Manager. One-time setup: scripts/setup-ci-gcp.sh
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false # never cut a deploy off halfway
+
+env:
+  PROJECT_ID: project-468f3f29-f3e4-4715-a6c
+  REGION: asia-south1 # must match firebase.json
+  SERVICE: workbharatgl-site
+  WIF_PROVIDER: projects/812899490568/locations/global/workloadIdentityPools/github/providers/workbharatgl-site
+  DEPLOY_SA: portfolio-deployer@project-468f3f29-f3e4-4715-a6c.iam.gserviceaccount.com
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 3
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: write # lets GitHub prove to GCP which repo/branch this run is
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.DEPLOY_SA }}
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy API to Cloud Run
+        # the service is already public; leaving --allow-unauthenticated off keeps its access as is
+        run: |
+          gcloud run deploy "$SERVICE" --source . --region "$REGION" --project "$PROJECT_ID" --quiet \
+            --set-secrets GEMINI_API_KEY=gemini-api-key:latest \
+            --memory 512Mi --cpu 1 --concurrency 80 --min-instances 0 --max-instances 5 --timeout 60
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deploy site to Firebase Hosting
+        run: npx --yes firebase-tools@15.32.1 deploy --only hosting --project "$PROJECT_ID" --non-interactive
+
+      - name: Smoke test
+        run: |
+          set -e
+          for p in / /skills; do curl -fsS -o /dev/null "https://$PROJECT_ID.web.app$p"; done
+          curl -fsS "https://$PROJECT_ID.web.app/api/live-token" | grep -q '"live":true'
+          echo "live site and voice API OK"

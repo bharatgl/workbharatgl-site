@@ -68,6 +68,11 @@ Cloud Run scales to zero when idle and is capped at 5 instances, so cost tracks 
 3. Domain, once: Firebase console → Hosting → Add custom domain → `workbharatgl.online` (and `www`),
    then add the DNS records it shows at your registrar. HTTPS is issued automatically.
 
+**Auto-deploy (GitHub Actions):** every push to `main` runs `.github/workflows/deploy.yml`: build, Cloud Run, Firebase
+Hosting, then a smoke test of the live site and voice API. Pull requests only build. GitHub signs in to GCP keylessly
+(Workload Identity Federation, trusted only for this repo's `main`); run `./scripts/setup-ci-gcp.sh` once to create
+that trust and the `portfolio-deployer` account. Manual `./scripts/deploy-gcp.sh` still works.
+
 Run the production server locally: `npm run build && node --env-file=.env server.js` (port 8080).
 Rotating a key: `printf '%s' NEW_KEY | gcloud secrets versions add gemini-api-key --data-file=-`, then redeploy.
 

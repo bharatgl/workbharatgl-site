@@ -6,6 +6,8 @@
 # One-time: install the Google Cloud CLI, then run `gcloud auth login`.
 # Usage:    GCP_PROJECT_ID=your-project-id ./scripts/deploy-gcp.sh
 set -euo pipefail
+# terminals opened before the Cloud SDK install don't have gcloud on PATH yet
+command -v gcloud >/dev/null || export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
 PROJECT="${GCP_PROJECT_ID:?Set GCP_PROJECT_ID to your GCP project id}"
 REGION="${GCP_REGION:-asia-south1}" # must match the region in firebase.json
