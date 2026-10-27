@@ -9,7 +9,8 @@ export const site = {
   linkedin: 'https://www.linkedin.com/in/YOUR-HANDLE',
   github: 'https://github.com/YOUR-HANDLE',
   leetcode: 'https://leetcode.com/YOUR-HANDLE',
-  photo: '/me.png',
+  photo: '/me.png', // cut-out (no background), for the mugshot against the height chart
+  heroPhoto: '/me-garden.jpg', // full photo, for the polaroid on the opening board
   openToWork: true,
 }
 

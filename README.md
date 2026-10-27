@@ -11,7 +11,7 @@ npm run dev        # http://localhost:5173  (design system: /design-system.html)
 
 ## Edit content
 - All copy (chapters, projects, FAQ, Instagram, links): `src/content.js`. Replace the `YOUR-HANDLE` links (LinkedIn, GitHub, LeetCode).
-- Photo: `public/me.png` (cut-out, transparent background).
+- Photos: `public/me-garden.jpg` (opening polaroid, 4:5) and `public/me.png` (About mugshot; cut-out with a transparent background). Paths live in `site.heroPhoto` / `site.photo` in `src/content.js`.
 - Resume: `public/resume.pdf` (served at /resume.pdf). Note: it contains your phone number.
 
 ## Design system (CASEFILE)

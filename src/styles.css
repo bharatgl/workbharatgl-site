@@ -94,9 +94,7 @@ main, .footer { position: relative; z-index: 1; }
 
 .co-evidence { position: relative; display: grid; justify-items: center; padding-bottom: 20px; }
 .co-photo { width: min(74vw, 340px); }
-.co-photo .cf-polaroid-img { background: radial-gradient(ellipse at 70% 12%, #26304b, #0d1019 70%); }
-.co-photo-sky { position: absolute; inset: 0; background: radial-gradient(circle at 78% 14%, rgba(255, 236, 170, .85) 0 7%, rgba(255, 210, 63, .25) 12%, transparent 26%); }
-.co-photo-img { position: relative; z-index: 1; object-fit: contain !important; object-position: bottom center; filter: contrast(1.06) saturate(.95); }
+.co-photo-img { object-position: 62% 40%; filter: contrast(1.04) saturate(1.05); }
 .co-clip { width: min(88%, 340px); margin-top: 14px; margin-left: -10%; padding: 20px 20px 22px; z-index: 3; }
 .co-photo .cf-polaroid-cap { text-align: right; padding-right: 6px; }
 .co-clip-paper { border-bottom: 1.5px solid var(--cf-ink); padding-bottom: 6px; margin-bottom: 8px; color: var(--cf-ink-2); font-size: .75rem; }

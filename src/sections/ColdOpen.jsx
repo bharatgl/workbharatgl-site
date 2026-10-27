@@ -75,8 +75,7 @@ export default function ColdOpen() {
         </div>
 
         <div className="co-evidence">
-          <Polaroid src={site.photo} alt={`${site.name}, frontend and AI engineer`} caption={hero.polaroid} tilt={4} fix="pin" className="co-photo" imgClass="co-photo-img">
-            <span className="co-photo-sky" aria-hidden="true" />
+          <Polaroid src={site.heroPhoto} alt={`${site.name} relaxing at a garden bench, in sunglasses and a black jacket`} caption={hero.polaroid} tilt={4} fix="pin" className="co-photo" imgClass="co-photo-img">
           </Polaroid>
           <Paper tone="news" tilt={-4} fix="pin" className="co-clip" torn={{ seed: 9, edges: 'tblr' }}>
             <p className="co-clip-paper cf-label">{hero.clipping.paper}</p>
