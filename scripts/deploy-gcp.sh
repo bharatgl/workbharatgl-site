@@ -10,6 +10,8 @@ set -euo pipefail
 PROJECT="${GCP_PROJECT_ID:?Set GCP_PROJECT_ID to your GCP project id}"
 REGION="${GCP_REGION:-asia-south1}" # must match the region in firebase.json
 SERVICE="workbharatgl-site"
+# own npm cache: a ~/.npm with root-owned files (from an old `sudo npm`) can't break the deploy
+export npm_config_cache="${npm_config_cache:-$HOME/.cache/npm-deploy}"
 FIREBASE="npx --yes firebase-tools@15.32.1"
 cd "$(dirname "$0")/.."
 
@@ -40,9 +42,14 @@ for s in gemini-api-key anthropic-api-key; do
       --role=roles/secretmanager.secretAccessor >/dev/null
 done
 
+# Newer projects build with the default compute account, which can't read uploaded sources until it has
+# the Cloud Run Builder role (source read, image + log write). Idempotent.
+gcloud projects add-iam-policy-binding "$PROJECT" --member="serviceAccount:$RUNTIME_SA" \
+  --role=roles/run.builder --condition=None >/dev/null
+
 echo "› building and deploying Cloud Run service $SERVICE"
 # max-instances caps cost if traffic (or abuse) spikes; min-instances 0 means it costs nothing when idle
-gcloud run deploy "$SERVICE" --source . --region "$REGION" --allow-unauthenticated \
+gcloud run deploy "$SERVICE" --source . --region "$REGION" --allow-unauthenticated --quiet \
   --set-secrets "$SECRETS" --memory 512Mi --cpu 1 --concurrency 80 \
   --min-instances 0 --max-instances 5 --timeout 60
 

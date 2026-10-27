@@ -49,7 +49,7 @@ async function serveStatic(req, res, pathname) {
 createServer(async (req, res) => {
   const { pathname } = new URL(req.url, 'http://localhost')
   try {
-    if (pathname === '/healthz') return res.end('ok')
+    if (pathname === '/health') return res.end('ok') // not /healthz: Cloud Run reserves paths ending in z
     const route = ROUTES[pathname.replace(/\/$/, '')]
     if (route) return await route(req, res)
     if (pathname.startsWith('/api/')) {
