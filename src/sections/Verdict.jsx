@@ -80,7 +80,7 @@ export default function Verdict() {
             </button>
           </div>
           <div className="verdict-ctas">
-            <Button href={`mailto:${site.email}`} onClick={signal}>Light the signal</Button>
+            <Button href={`mailto:${site.email}`} onClick={signal}>Send a tip-off</Button>
             <Button href={site.resume} variant="secondary" target="_blank" rel="noreferrer">Download résumé (PDF)</Button>
           </div>
           <ul className="verdict-links">

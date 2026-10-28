@@ -23,13 +23,13 @@ export const intro = {
 }
 
 export const hero = {
-  sticky: 'New case. Prime suspect: a full-stack engineer who keeps making things faster. Motive unclear.',
+  sticky: 'New case. Prime suspect: an engineer who leads a team by day and ships AI products by night. Motive unclear.',
   headline: ['BHARAT', 'GOYAL.'],
   role: 'Full-stack engineer with an AI habit. I make slow things fast, messy things simple, and loading spinners nervous.',
   clipping: {
     paper: 'The City Gazette · late edition',
-    title: 'Local engineer turns 3 weeks into 2 days',
-    body: 'Sources confirm a Bengaluru engineer has been quietly making products faster for 5M+ people. Loading spinners are reportedly “out of work”. Police have no leads. Recruiters do.',
+    title: 'Local engineer spotted at both ends of the stack',
+    body: 'Witnesses place a Bengaluru engineer in the browser, the API and the release pipeline, sometimes in the same afternoon. His team says he reviews code like a detective reads alibis. Police have no leads. Recruiters do.',
   },
   polaroid: 'The suspect',
   note: 'This one ships.',
@@ -43,8 +43,9 @@ export const about = {
   lead: 'Slow pages are my',
   leadMark: 'favourite kind of case.',
   body: [
-    'I’ve turned three-week client builds into two-day ones and kept a chatbot fast for 5 million people at rush hour (rush hour did not enjoy it). I lead a team of three engineers and still review every pull request like it owes me money.',
-    'On my own time I build the whole thing, UI to API to deploy: ForgeFit’s Fastify and MongoDB backend, and the voice agent on this page. Bring me the problem, not the ticket. I test on real phones, real data and real bad Wi-Fi before I call anything done, because “it works on my machine” has never once been a valid alibi.',
+    'I lead a small team at Kapture CX, so my week is part technical direction, part code review, part mentoring. I still take the hardest problem on the board myself, because a lead who stops shipping stops being useful.',
+    'I like problems with a blast radius: one product serving many enterprise clients, where a fix has to land for one of them without breaking anyone else. So I design for configuration over copy-paste, ship behind switches, and test on real phones and real bad Wi-Fi. “It works on my machine” has never once been a valid alibi.',
+    'Outside work I build whole products, UI to API to deploy. ForgeFit and the voice agent on this page are both mine, end to end.',
   ],
   facts: [
     ['Name', 'Bharat Goyal'],
@@ -70,13 +71,12 @@ export const trail = {
       where: 'Bengaluru',
       note: 'Currently at large',
       points: [
-        'Lead a team of 3 engineers: direction, sprint planning, code reviews, mentoring.',
-        'Made the enterprise support chat work like a native part of clients’ mobile apps by fixing keyboard, notch and navigation bugs behind per-client switches, so one codebase serves every client.',
-        'Brought commerce into the chat (orders, subscriptions, delivery slots) as shared components any client can switch on, instead of a fork per client.',
-        'Built a config-driven chat input end to end across a Node config service, the web widget and the admin builder, with unit tests.',
-        'Built a prompt-driven chatbot UI workflow. Client turnaround: 2–3 weeks → about 2 days.',
-        'Cut peak-traffic latency for a chatbot with 5M+ monthly users (profiling, code-splitting, smaller bundles).',
-        'GenAI dashboards that load 30% faster; config-driven multi-tenant UIs that cut onboarding by 30%.',
+        'Lead a team of 3 engineers: set technical direction, plan sprints, review code and mentor.',
+        'Own the customer-support chat that enterprise clients run on their websites and inside their mobile apps, from design through release and production fixes.',
+        'Introduced per-client switches, so the team turns a feature on for a new client with configuration instead of new code.',
+        'Run releases across several product lines and environments: versioning, cherry-picks and hotfixes.',
+        'Go wherever the feature needs me: a Node config service, the web widget and the admin builder in one change.',
+        'Drove the team’s AI work: a prompt-driven chatbot workflow and GenAI dashboards that load 30% faster.',
       ],
     },
     {
@@ -88,7 +88,7 @@ export const trail = {
       points: [
         'React, TypeScript & Redux data tools used by 500K+ enterprise users.',
         'A metadata-driven API config UI that made feature rollouts 30% faster.',
-        'Kanoo Travel revamp: 35% faster page loads, better accessibility and test coverage.',
+        'Rebuilt performance-critical enterprise screens with better accessibility and test coverage.',
       ],
     },
     {
@@ -154,12 +154,12 @@ export const evidence = {
     },
     {
       id: '05',
-      title: 'Rush hour at 5 million',
+      title: 'The rush-hour slowdown',
       org: 'Kapture CX',
-      problem: 'A chatbot used by 5M+ people a month slowed down exactly when everyone showed up. Classic.',
+      problem: 'A chatbot used by millions slowed down exactly when everyone showed up. Classic.',
       did: 'Profiled the render paths, code-split the heavy parts, memoised the hot ones and shrank the bundle.',
       result: '5M+',
-      resultLabel: 'Users kept fast',
+      resultLabel: 'Monthly users kept fast at peak',
       stack: ['React', 'Webpack', 'Profiling'],
     },
     {
@@ -275,7 +275,7 @@ export const interrogation = {
   title: 'Questions, answered',
   sub: 'The usual questions. No lawyer requested.',
   qa: [
-    { q: 'What do you do day to day?', a: 'I lead three engineers at Kapture CX and still write plenty of the code myself: chatbot UIs, GenAI dashboards and the performance work nobody notices until it’s missing. Outside work I build full products, backend included.' },
+    { q: 'What do you do day to day?', a: 'Set direction for my team, unblock people, review code, and keep the hardest technical problem for myself. Lately that’s making our support chat behave like a native part of clients’ mobile apps.' },
     { q: 'What are you strongest at?', a: 'Turning “why is this so slow?” into “oh, that was fast.” Then keeping it that way with tests and monitoring, so it stays solved.' },
     { q: 'Which roles are you looking for?', a: 'Full-stack or product-engineering roles where I own features end to end, from the UI to the API. Bonus points if there’s AI in the product. Extra bonus points if it’s slow right now.' },
     { q: 'Where are you based?', a: 'Bengaluru. Open to remote, hybrid or on-site. Traffic permitting.' },
@@ -305,11 +305,11 @@ export const nav = [
 export const mystery = {
   title: 'Case #001: the engineer who keeps making things fast',
   clues: [
-    { id: 'coffee', section: 'about', icon: 'coffee', label: 'A coffee ring on the file', fact: 'Coffee ring on the file. Someone reviews every pull request closely, at all hours.', hint: 'Check the suspect’s file. Somebody left a mug on it.' },
+    { id: 'coffee', section: 'about', icon: 'coffee', label: 'A coffee ring on the file', fact: 'Coffee ring on a sprint plan. Someone runs a team and still writes the hard parts.', hint: 'Check the suspect’s file. Somebody left a mug on it.' },
     { id: 'ticket', section: 'experience', icon: 'ticket', label: 'A train ticket on the trail', fact: 'Train ticket: Skillvalley → Kapture CX → SDE II. Three stops, one direction: up.', hint: 'Follow the trail. Travellers drop things.' },
-    { id: 'print', section: 'projects', icon: 'print', label: 'A fingerprint on an exhibit', fact: 'Fingerprints match a chatbot kept fast for 5 million users at rush hour.', hint: 'Dust the exhibits for prints.' },
+    { id: 'print', section: 'projects', icon: 'print', label: 'A fingerprint on an exhibit', fact: 'Fingerprints match a fix that reached every client app from one codebase, one switch at a time.', hint: 'Dust the exhibits for prints.' },
     { id: 'note', section: 'skills', icon: 'note', label: 'A torn note among the tools', fact: 'Torn note: “React, Node, AI. Make it fast. Make it simple.” Handwriting matches.', hint: 'Something is tucked between the evidence bags.' },
-    { id: 'key', section: 'contact', icon: 'key', label: 'An old key near the verdict', fact: 'A key. It opens one door: the inbox. Replies usually within a day.', hint: 'The last clue is near the verdict.' },
+    { id: 'key', section: 'contact', icon: 'key', label: 'An old key near the verdict', fact: 'A key. It opens exactly one door: the inbox.', hint: 'The last clue is near the verdict.' },
   ],
   question: 'Who is behind all five clues?',
   answers: [
@@ -345,7 +345,7 @@ export const architecture = [
 // The plain 30-second summary for recruiters in a hurry (no theme, no puns).
 export const summary = {
   title: 'Bharat Goyal, Full-Stack & AI Engineer',
-  line: 'SDE II at Kapture CX, Bengaluru. 3+ years building React, TypeScript and Node products; leads a team of 3.',
+  line: 'SDE II at Kapture CX, Bengaluru. Leads a team of 3 and owns the support chat enterprise clients run on web and in their mobile apps. 3+ years with React, TypeScript and Node.',
   wins: [
     'Cut client chatbot delivery from 2–3 weeks to about 2 days with a prompt-driven UI workflow.',
     'Kept a chatbot used by 5M+ people a month fast at peak traffic (profiling, code-splitting, smaller bundles).',
