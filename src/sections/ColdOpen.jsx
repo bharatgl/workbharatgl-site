@@ -107,7 +107,7 @@ export default function ColdOpen() {
   const ref = useRef(null)
   const goTo = useGoTo()
   // Stacked on phones: no hero string, so it never crosses the text or the photo.
-  const stacked = useMedia('(max-width: 1023px)')
+  const stacked = useMedia('(max-width: 767px)')
   useEffect(() => onReady(() => ref.current?.classList.add('in')), [])
   const tap = (e) => {
     if (e.target.closest('a, button')) return
