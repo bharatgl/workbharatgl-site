@@ -5,8 +5,8 @@ import { site, about, trail, evidence, tools, interrogation, instagram } from '.
 export const INSPECTOR = {
   name: 'Inspector Byte',
   greeting:
-    'evening, detective. i’m Inspector Byte, i’ve been tailing Bharat for a while. ask me anything about him: his work, his stack, or how to hire him.',
-  quickBack: 'what else do you want to know about Bharat?',
+    'Evening, detective. I’m Inspector Byte, I’ve been tailing Bharat for a while. Ask me anything about him: his work, his stack, or how to hire him.',
+  quickBack: 'What else do you want to know about Bharat?',
   quick: ['What’s his experience?', 'What’s his tech stack?', 'Best project?', 'Is he open to work?', 'How do I contact him?'],
 }
 
@@ -24,7 +24,7 @@ export function caseFile() {
   return `NAME: ${site.name}
 ROLE: ${site.role}
 LOCATION: ${site.location}
-OPEN TO WORK: ${site.openToWork ? 'yes, frontend / full-stack / AI engineering roles; remote, hybrid or on-site' : 'not right now'}
+OPEN TO WORK: ${site.openToWork ? 'Yes, frontend / full-stack / AI engineering roles; remote, hybrid or on-site' : 'Not right now'}
 CONTACT: email ${site.email}; résumé at /resume.pdf on this site
 
 QUICK FACTS

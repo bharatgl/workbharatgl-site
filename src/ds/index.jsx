@@ -47,11 +47,11 @@ export function Paper({ as: Tag = 'div', tone = 'paper', tilt = 0, fix, torn, li
 }
 
 /** Polaroid photo with a handwritten caption. */
-export function Polaroid({ src, alt, caption, tilt = -3, fix = 'tape', ratio = '4 / 5', children, className = '', imgClass = '', ...rest }) {
+export function Polaroid({ src, alt, caption, tilt = -3, fix = 'tape', ratio = '4 / 5', children, className = '', imgClass = '', priority = false, ...rest }) {
   return (
     <Paper tone="white" tilt={tilt} fix={fix} className={`cf-polaroid ${className}`} {...rest}>
       <div className="cf-polaroid-img" style={{ '--ratio': ratio }}>
-        {src && <img src={src} alt={alt} loading="lazy" className={imgClass} />}
+        {src && <img src={src} alt={alt} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : undefined} decoding="async" width="680" height="850" className={imgClass} />}
         {children}
       </div>
       {caption && <p className="cf-polaroid-cap">{caption}</p>}
@@ -152,7 +152,7 @@ export function Chapter({ n, label, title, sub }) {
   return (
     <header className="cf-chapter">
       <EvidenceTag className="cf-chapter-tag">
-        chapter {n} · {label}
+        Chapter {n} · {label}
       </EvidenceTag>
       <h2 className="cf-chapter-title cf-display">{title}</h2>
       {sub && <p className="cf-chapter-sub">{sub}</p>}

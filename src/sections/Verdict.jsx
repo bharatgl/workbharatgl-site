@@ -6,6 +6,8 @@ import { Button, Chapter, Stamp } from '../ds/index.jsx'
 import { gsap, useGSAP, MQ } from '../lib/motion.js'
 import useInView from '../lib/useInView.js'
 import { useGoTo } from '../lib/sectionRoutes.js'
+import { copyEmail } from '../components/EmailToast.jsx'
+import Clue from '../components/Clue.jsx'
 
 export default function Verdict() {
   const goTo = useGoTo()
@@ -16,7 +18,7 @@ export default function Verdict() {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(site.email)
-      setCopied('copied!')
+      setCopied('Copied!')
     } catch {
       const t = document.createElement('textarea')
       t.value = site.email
@@ -24,11 +26,12 @@ export default function Verdict() {
       t.select()
       const ok = document.execCommand?.('copy')
       t.remove()
-      setCopied(ok ? 'copied!' : 'press and hold to copy')
+      setCopied(ok ? 'Copied!' : 'Press and hold to copy')
     }
     setTimeout(() => setCopied(''), 2200)
   }
   const signal = (e) => {
+    copyEmail(site.email)
     const r = e.currentTarget.getBoundingClientRect()
     releaseBats(r.left + r.width / 2, r.top, 18)
   }
@@ -48,15 +51,16 @@ export default function Verdict() {
   )
 
   const links = [
-    ['linkedin', site.linkedin],
-    ['github', site.github],
-    ['leetcode', site.leetcode],
-    ['résumé (pdf)', site.resume],
+    ['LinkedIn', site.linkedin],
+    ['GitHub', site.github],
+    ['LeetCode', site.leetcode],
+    ['Résumé (PDF)', site.resume],
   ]
 
   return (
     <>
       <section className="cf-section verdict" id="contact">
+      <Clue id="key" />
         <div className="verdict-signal" aria-hidden="true">
           <span>BG</span>
         </div>
@@ -72,12 +76,12 @@ export default function Verdict() {
               {site.email}
             </a>
             <button className="verdict-copy" onClick={copy} aria-live="polite">
-              {copied || 'copy email'}
+              {copied || 'Copy email'}
             </button>
           </div>
           <div className="verdict-ctas">
-            <Button href={`mailto:${site.email}`} onClick={signal}>light the signal</Button>
-            <Button href={site.resume} variant="secondary" target="_blank" rel="noreferrer">download résumé</Button>
+            <Button href={`mailto:${site.email}`} onClick={signal}>Light the signal</Button>
+            <Button href={site.resume} variant="secondary" target="_blank" rel="noreferrer">Download résumé (PDF)</Button>
           </div>
           <ul className="verdict-links">
             {links.map(([l, h]) => (
@@ -92,9 +96,9 @@ export default function Verdict() {
       </section>
       <footer className="footer" ref={foot}>
         <div className="cf-wrap footer-row cf-label">
-          <span>© {new Date().getFullYear()} {site.name.toLowerCase()} · handmade with react, gsap and a lot of chai</span>
-          <a href="/design-system.html">the casefile design system ↗</a>
-          <a href="/" onClick={goTo('top')}>back to the start ↑</a>
+          <span>© {new Date().getFullYear()} {site.name} · Built with React and GSAP. No bugs were harmed (most were fixed). This site uses Google Analytics to see which pages are read; voice calls are logged as text.</span>
+          <a href="/design-system.html">The CASEFILE design system ↗</a>
+          <a href="/" onClick={goTo('top')}>Back to the scene ↑</a>
         </div>
         <div className="unfold" aria-hidden="true">
           <p className="unfold-word cf-display">

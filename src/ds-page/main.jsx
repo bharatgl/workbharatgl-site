@@ -13,7 +13,7 @@ const COLORS = [
   ['Signal', [['--cf-red', 'string, pins'], ['--cf-red-ink', 'red on paper · 5.1:1'], ['--cf-yellow', 'sticky, highlight'], ['--cf-blue', 'ballpoint notes']]],
 ]
 const TYPE = [
-  ['--cf-display · Anton', 'cf-display', 'MEET BHARAT.'],
+  ['--cf-display · Bebas Neue', 'cf-display', 'BHARAT GOYAL.'],
   ['--cf-body · Inter', '', 'i make slow things fast and messy things simple.'],
   ['--cf-type · Courier Prime', 'cf-type', 'occupation: SDE II, Frontend'],
   ['--cf-marker · Permanent Marker', 'cf-marker', 'hello, detective.'],
@@ -46,7 +46,7 @@ function Page() {
           <h1 className="cf-display ds-title">CASEFILE</h1>
           <p className="cf-muted ds-lede">
             the design system behind bharat goyal’s portfolio: a detective’s evidence board at night. dark cork, cream paper,
-            red string, yellow sticky notes. handmade on purpose, readable by design.
+            red string, yellow sticky notes. crafted on purpose, readable by design.
           </p>
         </div>
         <nav className="ds-toc" aria-label="Contents">
@@ -63,7 +63,7 @@ function Page() {
           <div className="ds-grid ds-grid--3">
             {[
               ['tell a story', 'every section is a chapter of one case. story lives in the small labels; headings stay plain so recruiters can scan.'],
-              ['handmade, not messy', 'tilts stay under 3°, paper sits on a strict grid underneath. tape, pins and string add life, never noise.'],
+              ['crafted, not messy', 'tilts stay under 3°, paper sits on a strict grid underneath. tape, pins and string add life, never noise.'],
               ['ink on paper', 'dark text on paper, light text on the board. every pairing passes WCAG AA; long text is always Inter.'],
               ['one red thread', 'red means connection or verdict: string, pins, stamps. yellow means “look here”: notes, highlights, the main action.'],
               ['motion feels physical', 'things are pinned, stamped, written and unfolded. every effect works on touch and has a reduced-motion fallback.'],
@@ -125,10 +125,10 @@ function Page() {
             <div className="ds-comp">
               <h3 className="cf-display ds-h3">Polaroid + sticky</h3>
               <div className="ds-row">
-                <Polaroid src="/me.png" alt="Bharat" caption="the suspect" tilt={-3} className="ds-pol" />
+                <Polaroid src="/me.webp" alt="Bharat" caption="the suspect" tilt={-3} className="ds-pol" />
                 <Sticky tilt={3} className="ds-sticky">hello, detective.</Sticky>
               </div>
-              <Code>{`<Polaroid src="/me.png" caption="the suspect" />
+              <Code>{`<Polaroid src="/me.webp" caption="the suspect" />
 <Sticky>hello, detective.</Sticky>`}</Code>
             </div>
             <div className="ds-comp">

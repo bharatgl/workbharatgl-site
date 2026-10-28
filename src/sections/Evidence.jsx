@@ -1,6 +1,7 @@
 import RedString from '../components/RedString.jsx'
 import { evidence } from '../content.js'
 import { Chapter, Circled, EvidenceTag, Paper, Reveal } from '../ds/index.jsx'
+import Clue from '../components/Clue.jsx'
 
 const LOOK = [
   { tone: 'paper', tilt: -2.2 },
@@ -29,11 +30,11 @@ function Exhibit({ c, i }) {
         </h3>
         <dl className="ex-notes">
           <div>
-            <dt className="cf-label">what was broken</dt>
+            <dt className="cf-label">What was broken</dt>
             <dd>{c.problem}</dd>
           </div>
           <div>
-            <dt className="cf-label">what i did</dt>
+            <dt className="cf-label">What I did</dt>
             <dd>{c.did}</dd>
           </div>
         </dl>
@@ -58,6 +59,7 @@ function Exhibit({ c, i }) {
 export default function Evidence() {
   return (
     <section className="cf-section evidence" id="projects">
+      <Clue id="print" />
       <div className="cf-wrap">
         <Chapter n="03" label={evidence.label} title={evidence.title} sub={evidence.sub} />
         <RedString className="ex-board" sag={0.12} start="top 80%" end="bottom 60%">

@@ -4,6 +4,8 @@ import InspectorFigure from './InspectorFigure.jsx'
 import useVoice from '../lib/useVoice.js'
 import useLiveCall, { liveAvailable } from '../lib/useLiveCall.js'
 import { INSPECTOR } from '../lib/inspectorKnowledge.js'
+import { logCall } from '../lib/callLog.js'
+import { track } from '../lib/analytics.js'
 import { answerOffline } from '../lib/inspectorBrain.js'
 
 const STORE = 'cf-inspector-chat'
@@ -43,7 +45,7 @@ async function askAI(history) {
 const linkify = (text) =>
   text.split(/(\S+@\S+\.\w+|\/resume\.pdf|(?:https?:\/\/)?[\w-]+\.(?:space|com|in|dev)(?:\/\S*)?)/g).map((part, i) => {
     if (/@/.test(part)) return <a key={i} href={`mailto:${part.replace(/[.,]$/, '')}`}>{part}</a>
-    if (part === '/resume.pdf') return <a key={i} href="/resume.pdf" target="_blank" rel="noreferrer">résumé (pdf)</a>
+    if (part === '/resume.pdf') return <a key={i} href="/resume.pdf" target="_blank" rel="noreferrer">Résumé (PDF)</a>
     if (/^(?:https?:\/\/)?[\w-]+\.(space|com|in|dev)/.test(part) && !/\s/.test(part)) {
       const href = part.startsWith('http') ? part : `https://${part.replace(/[.,]$/, '')}`
       return <a key={i} href={href} target="_blank" rel="noreferrer">{part}</a>
@@ -107,6 +109,10 @@ export default function Inspector() {
     } catch {}
     if (seen) return
     const t = setTimeout(() => {
+      // the incoming-call screen already introduced him this visit
+      try {
+        if (localStorage.getItem('cf-call-rang')) return
+      } catch {}
       setTeaser(true)
       try {
         sessionStorage.setItem(TEASED, '1')
@@ -193,7 +199,7 @@ export default function Inspector() {
     if (!greeted.current && !live) {
       greeted.current = true
       const last = [...messages].reverse().find((m) => m.role === 'assistant')
-      const hello = last && messages.length > 1 ? `welcome back, detective. ${INSPECTOR.quickBack}` : INSPECTOR.greeting
+      const hello = last && messages.length > 1 ? `Welcome back, detective. ${INSPECTOR.quickBack}` : INSPECTOR.greeting
       setTimeout(() => say(hello), 450)
     }
     setTimeout(() => field.current?.focus({ preventScroll: true }), 500)
@@ -265,6 +271,58 @@ export default function Inspector() {
     else setMood('idle')
   }
 
+  // Tapped the badge before this file had loaded: open now, and pick up once we know live voice is on.
+  const pendingCall = useRef(false)
+  useEffect(() => {
+    if (!window.__inspectorPending) return
+    window.__inspectorPending = false
+    setOpen(true)
+    setTeaser(false)
+    pendingCall.current = true
+  }, [])
+  useEffect(() => {
+    if (live && pendingCall.current) {
+      pendingCall.current = false
+      onCallRef.current?.()
+    }
+  }, [live])
+
+  // The "incoming call" Answer button opens the stage and picks up (still inside the click).
+  const onCallRef = useRef(null)
+  onCallRef.current = () => onCall()
+  useEffect(() => {
+    const on = () => {
+      setOpen(true)
+      setTeaser(false)
+      track('inspector_open', { via: 'incoming_call' })
+      if (live) onCallRef.current()
+    }
+    window.addEventListener('inspector:answer', on)
+    return () => window.removeEventListener('inspector:answer', on)
+  }, [live])
+
+  // Call logs: start and end of every live call, with length, turns, how it ended and the transcript.
+  const messagesRef = useRef(messages)
+  messagesRef.current = messages
+  const callRec = useRef(null)
+  useEffect(() => {
+    if (call.status === 'live' && !callRec.current) {
+      callRec.current = { at: Date.now(), from: messagesRef.current.length }
+      logCall('start')
+    } else if (call.status === 'off' && callRec.current) {
+      const rec = callRec.current
+      callRec.current = null
+      const turns = messagesRef.current.slice(rec.from)
+      logCall('end', {
+        seconds: Math.round((Date.now() - rec.at) / 1000),
+        turns: turns.filter((m) => m.role === 'user').length,
+        reason: call.endReason.current || 'hang_up',
+        transcript: turns.map((m) => ({ role: m.role, text: m.content })),
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [call.status])
+
   /** Start (or hang up) the live call. Call from a click so the browser allows audio. */
   const onCall = async (firstText = '') => {
     if (inCall) return call.end()
@@ -307,19 +365,19 @@ export default function Inspector() {
     ? ringing
       ? 'ringing…'
       : call.status === 'ending'
-        ? 'wrapping up the call'
+        ? 'Wrapping up the call'
         : call.speaking
         ? 'talking'
         : call.muted
-          ? 'you’re muted'
-          : 'listening, just talk'
+          ? 'You’re muted'
+          : 'Listening, just talk'
     : voice.listening
       ? 'listening…'
       : mood === 'thinking'
-        ? 'checking the file…'
+        ? 'Checking the file…'
         : mood === 'talking'
           ? 'talking'
-          : 'on duty'
+          : 'On duty'
 
   return (
     <>
@@ -328,6 +386,7 @@ export default function Inspector() {
         onClick={() => {
           setOpen(true)
           setTeaser(false)
+          track('inspector_open', { via: 'launcher' })
           if (live) onCall() // opening him is the call: he greets in his real voice right away
         }}
         aria-label="Talk to Inspector Byte about Bharat"
@@ -336,10 +395,10 @@ export default function Inspector() {
         data-cursor="interrogate"
       >
         <InspectorAvatar size={62} />
-        <span className="insp-launch-tag">ask the inspector</span>
+        <span className="insp-launch-tag">Ask the inspector</span>
         {teaser && (
           <span className="insp-teaser" role="status">
-            psst. questions about Bharat? ask me, i’ve got the file.
+            Psst. Questions about Bharat? Ask me, I’ve got the file.
           </span>
         )}
       </button>
@@ -382,7 +441,7 @@ export default function Inspector() {
         <div className={`bubble ${thinking ? 'bubble--think' : ''} ${bubbleText || thinking ? 'is-on' : ''}`} aria-live="polite">
           {thinking ? (
             <p className="bubble-dots" aria-label={ringing ? 'Calling the inspector' : 'Inspector is thinking'}>
-              {ringing ? 'ring ring' : 'hmm'}
+              {ringing ? 'Ring ring' : 'hmm'}
               <span>.</span>
               <span>.</span>
               <span>.</span>
@@ -411,7 +470,7 @@ export default function Inspector() {
 
         {transcript && (
           <div className="stage-transcript" role="log" aria-label="Transcript">
-            {messages.length === 0 && <p className="cf-label">nothing on record yet.</p>}
+            {messages.length === 0 && <p className="cf-label">Nothing on record yet.</p>}
             {messages.map((m, i) => (
               <p key={i} className={`tr tr--${m.role}`}>
                 <b className="cf-label">{m.role === 'user' ? 'you' : 'inspector'}</b> {linkify(m.content)}
@@ -438,7 +497,7 @@ export default function Inspector() {
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" />
                 </svg>
-                <span>{inCall ? (ringing ? 'cancel' : 'hang up') : 'call him again'}</span>
+                <span>{inCall ? (ringing ? 'Cancel' : 'Hang up') : 'Call him again'}</span>
               </button>
               {inCall && !ringing && (
                 <button type="button" className={`stage-icon stage-mute ${call.muted ? 'is-on' : ''}`} onClick={() => call.setMuted((m) => !m)} aria-pressed={call.muted} aria-label={call.muted ? 'Unmute your mic' : 'Mute your mic'} tabIndex={open ? 0 : -1}>
@@ -449,7 +508,7 @@ export default function Inspector() {
                   </svg>
                 </button>
               )}
-              {inCall && !ringing && <span className="stage-call-hint">just talk. interrupt him any time.</span>}
+              {inCall && !ringing && <span className="stage-call-hint">Just talk. Interrupt him any time.</span>}
             </div>
           )}
           <form
@@ -465,7 +524,7 @@ export default function Inspector() {
                 <span>{voice.listening ? 'listening' : 'talk'}</span>
               </button>
             )}
-            <input ref={field} value={input} onChange={(e) => setInput(e.target.value)} placeholder={inCall ? 'or type while you talk…' : 'or type a question…'} maxLength={500} aria-label="Your question" tabIndex={open ? 0 : -1} />
+            <input ref={field} value={input} onChange={(e) => setInput(e.target.value)} placeholder={inCall ? 'Or type while you talk…' : 'Or type a question…'} maxLength={500} aria-label="Your question" tabIndex={open ? 0 : -1} />
             <button type="submit" className="stage-send" disabled={!input.trim() || (!inCall && mood === 'thinking') || ringing} aria-label="Ask" tabIndex={open ? 0 : -1}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7" fill="none" /></svg>
             </button>

@@ -1,6 +1,6 @@
 // Offline answer engine: scores the question against intents and answers from the site's own
 // content. Used when the AI endpoint is unavailable (no key, offline, rate-limited, error).
-import { site, trail, evidence, tools, instagram } from '../content.js'
+import { site, trail, evidence, tools, instagram, jokes } from '../content.js'
 
 const norm = (s) =>
   ` ${s.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9+.#\s]/g, ' ').replace(/\s+/g, ' ')} `
@@ -153,6 +153,7 @@ const INTENTS = [
 /** Returns a short answer for `question` from the site's content. */
 export function answerOffline(question) {
   const q = norm(question)
+  if (/ (joke|funny|laugh|make me smile) /.test(q)) return jokes[Math.floor(Math.random() * jokes.length)]
   let best = null
   let bestScore = 0
   for (const intent of INTENTS) {

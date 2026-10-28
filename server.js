@@ -8,10 +8,11 @@ import { extname, join, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import ask from './api/ask.js'
 import liveToken from './api/live-token.js'
+import callLog from './api/call-log.js'
 
 const PORT = Number(process.env.PORT) || 8080
 const DIST = fileURLToPath(new URL('./dist/', import.meta.url))
-const ROUTES = { '/api/ask': ask, '/api/live-token': liveToken }
+const ROUTES = { '/api/ask': ask, '/api/live-token': liveToken, '/api/call-log': callLog }
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',

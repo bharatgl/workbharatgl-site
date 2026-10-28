@@ -123,13 +123,13 @@ export default function useVoice() {
         }
         r.onerror = (e) => {
           const map = {
-            'not-allowed': 'microphone is blocked. allow it in your browser’s site settings, or just type.',
-            'service-not-allowed': 'voice input isn’t allowed here. you can type instead.',
-            'no-speech': 'didn’t catch that. tap the mic and try again.',
-            'audio-capture': 'no microphone found. you can type instead.',
-            network: 'voice needs an internet connection. you can type instead.',
+            'not-allowed': 'Microphone is blocked. Allow it in your browser’s site settings, or just type.',
+            'service-not-allowed': 'Voice input isn’t allowed here. You can type instead.',
+            'no-speech': 'Didn’t catch that. Tap the mic and try again.',
+            'audio-capture': 'No microphone found. You can type instead.',
+            network: 'Voice needs an internet connection. You can type instead.',
           }
-          if (e.error !== 'aborted') setError(map[e.error] || 'voice input hiccuped. try again or type.')
+          if (e.error !== 'aborted') setError(map[e.error] || 'Voice input hiccuped. Try again or type.')
         }
         r.onend = () => {
           setListening(false)

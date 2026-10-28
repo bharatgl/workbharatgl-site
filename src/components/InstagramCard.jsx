@@ -35,7 +35,7 @@ function loadScript() {
       const s = document.createElement('script')
       s.src = SCRIPT_SRC
       s.async = true
-      s.onload = () => (window.instgrm?.Embeds ? resolve() : reject(new Error('no embed api')))
+      s.onload = () => (window.instgrm?.Embeds ? resolve() : reject(new Error('No embed api')))
       s.onerror = () => reject(new Error('blocked'))
       document.body.appendChild(s)
     }).catch((err) => {
@@ -156,7 +156,7 @@ export default function InstagramCard({ label, handle: rawHandle, blurb, posts: 
               @{handle}
             </a>
           ) : (
-            <p className="ig-handle ig-handle--missing">{demo ? 'add your handle in content.js' : ''}</p>
+            <p className="ig-handle ig-handle--missing">{demo ? 'Add your handle in content.js' : ''}</p>
           )}
         </div>
       </div>
@@ -166,13 +166,13 @@ export default function InstagramCard({ label, handle: rawHandle, blurb, posts: 
         <div className={`ig-posts is-${state}`} ref={box}>
           {state === 'idle' ? (
             <div className="ig-developing" aria-hidden="true">
-              <span className="cf-label">developing the photos…</span>
+              <span className="cf-label">Developing the photos…</span>
             </div>
           ) : (
             <>
               {state === 'loading' && (
                 <div className="ig-developing ig-developing--overlay" aria-live="polite">
-                  <span className="cf-label">developing the photos…</span>
+                  <span className="cf-label">Developing the photos…</span>
                 </div>
               )}
               <div
@@ -227,15 +227,15 @@ export default function InstagramCard({ label, handle: rawHandle, blurb, posts: 
 
       {state === 'failed' && (
         <div className="ig-fallback" role="status">
-          <p>the photos didn’t come through. an ad-blocker, privacy setting or a slow connection can block Instagram.</p>
+          <p>The photos didn’t come through. An ad-blocker, privacy setting or a slow connection can block Instagram.</p>
           <div className="ig-fallback-actions">
             {profile && (
               <Button href={profile} target="_blank" rel="noreferrer">
-                open on instagram
+                Open on Instagram
               </Button>
             )}
             <Button as="button" variant="ghost" onClick={() => setState('loading')}>
-              try again
+              Try again
             </Button>
           </div>
         </div>

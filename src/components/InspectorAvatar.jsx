@@ -15,7 +15,7 @@ export default function InspectorAvatar({ size = 64, talking = false, listening 
       <path d="M26 49 C40 58 80 58 94 49 L94 53 C80 62 40 62 26 53 Z" fill="#0d1526" />
       {/* badge */}
       <path d="M60 22 L69 27 L69 37 L60 42 L51 37 L51 27 Z" fill="#ffd23f" stroke="#a87b0b" strokeWidth="1.5" />
-      <text x="60" y="35.5" textAnchor="middle" fontFamily="Anton, Impact, sans-serif" fontSize="9" fill="#5a3f00">BG</text>
+      <text x="60" y="35.5" textAnchor="middle" fontFamily="Bebas Neue, Arial Narrow, sans-serif" fontSize="9" fill="#5a3f00">BG</text>
       {/* brows */}
       <path className="insp-brow insp-brow--l" d="M38 62 Q46 57 53 61" stroke="#3b2414" strokeWidth="4" strokeLinecap="round" fill="none" />
       <path className="insp-brow insp-brow--r" d="M67 61 Q74 57 82 62" stroke="#3b2414" strokeWidth="4" strokeLinecap="round" fill="none" />

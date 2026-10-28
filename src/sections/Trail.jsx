@@ -1,12 +1,14 @@
 import RedString from '../components/RedString.jsx'
 import { trail } from '../content.js'
 import { Chapter, EvidenceTag, Paper, Reveal } from '../ds/index.jsx'
+import Clue from '../components/Clue.jsx'
 
 const TILTS = [-1.6, 1.4, -0.8]
 
 export default function Trail() {
   return (
     <section className="cf-section trail" id="experience">
+      <Clue id="ticket" />
       <div className="cf-wrap">
         <Chapter n="02" label={trail.label} title={trail.title} sub={trail.sub} />
         <RedString className="trail-list" sag={0.08}>

@@ -1,185 +1,185 @@
 // All site copy lives here. Edit freely.
-// Voice: lowercase, casual, confident, a little cheeky. Headings stay plain for recruiters.
+// Voice: sentence case, plain and confident, with a dry detective-case-file humour. Headings stay plain for recruiters.
 export const site = {
   name: 'Bharat Goyal',
   role: 'Frontend & AI Engineer',
   location: 'Bengaluru, India',
   email: 'goyalbharat9977@gmail.com',
   resume: '/resume.pdf',
-  linkedin: 'https://www.linkedin.com/in/YOUR-HANDLE',
-  github: 'https://github.com/YOUR-HANDLE',
-  leetcode: 'https://leetcode.com/YOUR-HANDLE',
-  photo: '/me.png', // cut-out (no background), for the mugshot against the height chart
-  heroPhoto: '/me-garden.jpg', // full photo, for the polaroid on the opening board
+  linkedin: 'https://www.linkedin.com/in/bharatgl',
+  github: 'https://github.com/bharatgl',
+  leetcode: 'https://leetcode.com/bharatgl',
+  photo: '/me.webp', // cut-out (no background), for the mugshot against the height chart · 52 KB
+  heroPhoto: '/me-garden.webp', // full photo, for the polaroid on the opening board · 97 KB
   openToWork: true,
 }
 
-export const tape = ['case #001 is open', 'frontend & AI engineer', 'available for new roles', 'bengaluru / remote']
+export const tape = ['Case #001 is open', 'Frontend & AI engineer', 'Wanted: by recruiters', 'Last seen in Bengaluru', 'Do not cross: slow code']
 
 export const intro = {
-  file: 'case file #001',
-  name: 'bharat goyal',
-  flag: 'open',
+  file: 'Case file #001',
+  name: 'Bharat Goyal',
+  flag: 'Open',
 }
 
 export const hero = {
-  hello: 'hello',
-  namePlaceholder: 'first name',
-  stickyEnd: 'welcome to the case, detective.',
-  headline: ['MEET', 'BHARAT.'],
-  role: 'frontend & AI engineer. i make slow things fast and messy things simple.',
+  sticky: 'New case. Prime suspect: a frontend engineer who keeps making things faster. Motive unclear.',
+  headline: ['BHARAT', 'GOYAL.'],
+  role: 'Frontend & AI engineer. I make slow things fast, messy things simple, and loading spinners nervous.',
   clipping: {
-    paper: 'the city gazette · late edition',
-    title: 'local engineer turns 3 weeks into 2 days',
-    body: 'sources confirm a frontend engineer in bengaluru has been quietly making products faster for 5M+ people. police have no leads. recruiters do.',
+    paper: 'The City Gazette · late edition',
+    title: 'Local engineer turns 3 weeks into 2 days',
+    body: 'Sources confirm a Bengaluru frontend engineer has been quietly making products faster for 5M+ people. Loading spinners are reportedly “out of work”. Police have no leads. Recruiters do.',
   },
-  polaroid: 'the suspect',
-  note: 'this one ships.',
-  cta: 'open the case',
+  polaroid: 'The suspect',
+  note: 'This one ships.',
+  cta: 'Open the case',
 }
 
 export const about = {
-  label: 'the suspect',
+  label: 'The suspect',
   title: 'About me',
-  lead: 'i’m your person to get it shipped.',
+  // the highlighted part of the lead is `leadMark`
+  lead: 'Slow pages are my',
+  leadMark: 'favourite kind of case.',
   body: [
-    'i’ve turned three-week client builds into two-day ones. i’ve kept a chatbot fast for 5 million people at rush hour. i lead a squad of three, and i still review every PR like it’s my own.',
-    'name the problem. if i haven’t solved it yet, give me a weekend. whatever the stack, i don’t ship “it works on my machine”.',
+    'I’ve turned three-week client builds into two-day ones and kept a chatbot fast for 5 million people at rush hour (rush hour did not enjoy it). I lead a team of three engineers and still review every pull request like it owes me money.',
+    'Bring me the problem, not the ticket. I test on real phones, real data and real bad Wi-Fi before I call anything done, because “it works on my machine” has never once been a valid alibi.',
   ],
   facts: [
-    ['name', 'Bharat Goyal'],
-    ['occupation', 'SDE II, Frontend · Kapture CX'],
-    ['active since', '2022 (3+ years)'],
-    ['last seen', 'Bengaluru · open to remote'],
-    ['known for', 'speed, ownership, AI features'],
-    ['education', 'B.Tech, GNDEC Punjab'],
+    ['Name', 'Bharat Goyal'],
+    ['Occupation', 'SDE II, Frontend · Kapture CX'],
+    ['Active since', '2022 (3+ years)'],
+    ['Last seen', 'Bengaluru · open to remote'],
+    ['Known for', 'Speed, ownership, AI features'],
+    ['Education', 'B.Tech, GNDEC Punjab'],
   ],
-  note: 'suspect is relentless. approach with a hard problem.',
-  stamp: 'open to work',
+  note: 'Approach with caution. Suspect is armed with a profiler.',
+  stamp: 'Open to work',
 }
 
 export const trail = {
-  label: 'the trail',
+  label: 'The trail',
   title: 'Experience',
-  sub: 'three stops so far. each one left fingerprints.',
+  sub: 'Three stops so far. Fingerprints left at every scene, all of them on the commit history.',
   jobs: [
     {
       role: 'SDE II, Frontend',
       company: 'Kapture CX',
-      when: 'oct 2025 – now',
+      when: 'Oct 2025 – now',
       where: 'Bengaluru',
-      note: 'currently here',
+      note: 'Currently at large',
       points: [
-        'lead a team of 3 frontend engineers: direction, sprint planning, code reviews, mentoring.',
-        'built a prompt-driven chatbot UI workflow. client turnaround: 2–3 weeks → about 2 days.',
-        'cut peak-traffic latency for a chatbot with 5M+ monthly users (profiling, code-splitting, bundle diet).',
+        'Lead a team of 3 frontend engineers: direction, sprint planning, code reviews, mentoring.',
+        'Built a prompt-driven chatbot UI workflow. Client turnaround: 2–3 weeks → about 2 days.',
+        'Cut peak-traffic latency for a chatbot with 5M+ monthly users (profiling, code-splitting, smaller bundles).',
         'GenAI dashboards that load 30% faster; config-driven multi-tenant UIs that cut onboarding by 30%.',
       ],
     },
     {
       role: 'SDE I, Frontend',
       company: 'Kapture CX',
-      when: 'dec 2023 – sep 2025',
+      when: 'Dec 2023 – Sep 2025',
       where: 'Bengaluru',
-      note: 'promoted',
+      note: 'Promoted (case escalated)',
       points: [
         'React, TypeScript & Redux data tools used by 500K+ enterprise users.',
-        'a metadata-driven API config UI that made feature rollouts 30% faster.',
+        'A metadata-driven API config UI that made feature rollouts 30% faster.',
         'Kanoo Travel revamp: 35% faster page loads, better accessibility and test coverage.',
       ],
     },
     {
       role: 'SDE Intern',
       company: 'Skillvalley',
-      when: 'aug 2022 – nov 2023',
-      where: 'remote',
-      note: 'where it started',
+      when: 'Aug 2022 – Nov 2023',
+      where: 'Remote',
+      note: 'Where the trouble started',
       points: [
-        'full-stack HR & payroll features (React, Node, MongoDB). payroll errors: down 45%.',
-        'dashboards, reports and PDF workflows that cut manual HR work by 35%.',
+        'Full-stack HR & payroll features (React, Node, MongoDB). Payroll errors: down 45%.',
+        'Dashboards, reports and PDF workflows that cut manual HR work by 35%.',
       ],
     },
   ],
 }
 
 export const evidence = {
-  label: 'the evidence',
+  label: 'The evidence',
   title: 'Projects',
-  sub: 'every case: what was broken, what i did, what changed.',
+  sub: 'Every exhibit: the crime (slow, broken, painful), the fix, and the alibi (the numbers).',
   cases: [
     {
       id: '01',
-      title: 'the three-week turnaround',
+      title: 'The three-week turnaround',
       org: 'Kapture CX',
-      problem: 'every new client chatbot UI was hand-built. 2–3 weeks, every single time.',
-      did: 'built a prompt-driven workflow on Handlebars templates, so new chatbots get configured, not coded.',
+      problem: 'Every new client chatbot UI was hand-built. 2–3 weeks, every single time. A crime against calendars.',
+      did: 'Built a prompt-driven workflow on Handlebars templates, so new chatbots get configured, not coded.',
       result: '2 days',
-      resultLabel: 'client turnaround',
+      resultLabel: 'Client turnaround',
       stack: ['React', 'Handlebars', 'Prompting'],
     },
     {
       id: '02',
-      title: 'the AI coach that talks back',
+      title: 'The AI coach that talks back',
       org: 'ForgeFit · my own product',
-      problem: 'fitness apps hand everyone the same plan and never listen.',
-      did: 'designed, built and shipped an AI coach: provider-neutral AI layer, structured plans with safety checks, real-time voice and on-device pose tracking.',
-      result: 'live',
+      problem: 'Fitness apps hand everyone the same plan and never listen. Mine talks back. Politely.',
+      did: 'Designed, built and shipped an AI coach: provider-neutral AI layer, structured plans with safety checks, real-time voice and on-device pose tracking.',
+      result: 'Live',
       resultLabel: 'forgefit.space',
       stack: ['Next.js', 'TypeScript', 'Fastify', 'MongoDB', 'GCP'],
       link: 'https://forgefit.space',
     },
     {
       id: '03',
-      title: 'rush hour at 5 million',
+      title: 'Rush hour at 5 million',
       org: 'Kapture CX',
-      problem: 'a chatbot used by 5M+ people a month slowed down exactly when it mattered.',
-      did: 'profiled the render paths, code-split the heavy bits, memoised the hot ones and put the bundle on a diet.',
+      problem: 'A chatbot used by 5M+ people a month slowed down exactly when everyone showed up. Classic.',
+      did: 'Profiled the render paths, code-split the heavy parts, memoised the hot ones and shrank the bundle.',
       result: '5M+',
-      resultLabel: 'users kept fast',
+      resultLabel: 'Users kept fast',
       stack: ['React', 'Webpack', 'Profiling'],
     },
     {
       id: '04',
-      title: 'words into interfaces',
+      title: 'Words into interfaces',
       org: 'Kapture CX',
-      problem: 'shoppers ask in plain language. most stores answer with a search box.',
-      did: 'early build of a platform that turns natural-language requests into real UI (comparisons, selection, checkout) using each client’s own components.',
-      result: 'gen UI',
-      resultLabel: 'in the works',
+      problem: 'Shoppers ask in plain language. Most stores answer with a search box and a shrug.',
+      did: 'Early build of a platform that turns natural-language requests into real UI (comparisons, selection, checkout) using each client’s own components.',
+      result: 'Gen UI',
+      resultLabel: 'In the works',
       stack: ['React', 'LLMs', 'Generative UI'],
     },
     {
       id: '05',
-      title: 'the onboarding heist',
+      title: 'The onboarding heist',
       org: 'Kapture CX',
-      problem: 'every enterprise customer needed custom screens, so onboarding dragged on.',
-      did: 'built configuration-driven, multi-tenant UI systems with Sentry-backed QA loops.',
+      problem: 'Every enterprise customer needed custom screens, so onboarding moved at the speed of paperwork.',
+      did: 'Built configuration-driven, multi-tenant UI systems with Sentry-backed QA loops.',
       result: '−30%',
-      resultLabel: 'onboarding time',
+      resultLabel: 'Onboarding time',
       stack: ['React', 'Redux', 'Sentry'],
     },
     {
       id: '06',
-      title: 'operation kanoo',
+      title: 'Operation Kanoo',
       org: 'Kapture CX',
-      problem: 'performance-critical enterprise screens took their sweet time to load.',
-      did: 'refactored components, squeezed the assets and tuned Webpack.',
+      problem: 'Performance-critical enterprise screens loaded slowly enough to make tea in between.',
+      did: 'Refactored components, compressed the assets and tuned Webpack.',
       result: '35%',
-      resultLabel: 'faster page loads',
+      resultLabel: 'Faster page loads',
       stack: ['React', 'TypeScript', 'Webpack'],
     },
   ],
 }
 
 export const tools = {
-  label: 'found at the scene',
+  label: 'Found at the scene',
   title: 'Skills',
-  sub: 'fingerprints on all of them.',
+  sub: 'Tools recovered from the scene. Fingerprints confirmed on all of them.',
   groups: [
-    { name: 'frontend', items: ['React', 'TypeScript', 'JavaScript', 'Next.js', 'Redux', 'Tailwind', 'Material UI', 'performance'] },
-    { name: 'backend & cloud', items: ['Node.js', 'Fastify', 'REST', 'GraphQL', 'WebSockets', 'MongoDB', 'SQL', 'Docker', 'GCP'] },
-    { name: 'AI', items: ['LLM integration', 'structured outputs', 'AI safety checks', 'voice UIs'] },
-    { name: 'how i work', items: ['DSA', 'Jest', 'CI/CD', 'Webpack', 'Sentry', 'accessibility', 'micro-frontends', 'team lead'] },
+    { name: 'Frontend', items: ['React', 'TypeScript', 'JavaScript', 'Next.js', 'Redux', 'Tailwind', 'Material UI', 'Performance'] },
+    { name: 'Backend & cloud', items: ['Node.js', 'Fastify', 'REST', 'GraphQL', 'WebSockets', 'MongoDB', 'SQL', 'Docker', 'GCP'] },
+    { name: 'AI', items: ['LLM integration', 'Structured outputs', 'AI safety checks', 'Voice UIs'] },
+    { name: 'How I work', items: ['DSA', 'Jest', 'CI/CD', 'Webpack', 'Sentry', 'Accessibility', 'Micro-frontends', 'Team lead'] },
   ],
 }
 
@@ -187,9 +187,9 @@ export const tools = {
 export const instagram = [
   {
     key: 'tech',
-    label: 'tech & life',
+    label: 'Tech & life',
     handle: 'bharatgoyal.jpeg',
-    blurb: 'what i’m building (hi, ForgeFit), bengaluru, and everything in between.',
+    blurb: 'What I’m building (hi, ForgeFit), Bengaluru, and the occasional suspiciously good coffee.',
     posts: [
       'https://www.instagram.com/p/Db7pRUejwtt/',
       'https://www.instagram.com/p/DbgPM_uj3rG/',
@@ -198,9 +198,9 @@ export const instagram = [
   },
   {
     key: 'gym',
-    label: 'fitness',
+    label: 'Fitness',
     handle: 'bharatgetsrelentless',
-    blurb: 'fat to fit, naturally. the same stubbornness i bring to a slow page.',
+    blurb: 'Fat to fit, naturally. The same stubbornness I bring to a slow page, now with dumbbells.',
     posts: [
       'https://www.instagram.com/reel/DdraK5ThiF3/',
       'https://www.instagram.com/reel/DcwXwV0TiY0/',
@@ -210,39 +210,82 @@ export const instagram = [
 ]
 
 export const offRecord = {
-  label: 'off the record',
+  label: 'Off the record',
   title: 'Beyond the code',
-  sub: 'where i post what i build, and where i pick heavy things up.',
+  sub: 'Surveillance footage, voluntarily provided: what I build, and what I lift.',
 }
 
 export const interrogation = {
-  label: 'the interrogation',
-  title: 'Before you ask',
-  sub: 'answers on the record.',
+  label: 'The interrogation',
+  title: 'Questions, answered',
+  sub: 'The usual questions. No lawyer requested.',
   qa: [
-    { q: 'how soon can you start?', a: 'as soon as my notice period lets me. i’ll have read your codebase before day one.' },
-    { q: 'what kind of role are you after?', a: 'frontend or full-stack, where i own the UI end to end. bonus points if there’s AI in it.' },
-    { q: 'remote, hybrid or office?', a: 'bengaluru-based. happy with remote, hybrid or on-site.' },
-    { q: 'who should not hire you?', a: 'teams that want tickets closed, not problems solved. i will ask “why” in sprint planning.' },
-    { q: 'fastest way to get your best work?', a: 'a hard problem, real users and honest feedback. then let me run.' },
-    { q: 'what makes you dangerous?', a: 'ownership + a profiler.' },
-    { q: 'what do you still suck at?', a: 'leaving a slow page alone. it’s a condition.' },
+    { q: 'What do you do day to day?', a: 'I lead three frontend engineers at Kapture CX and still write plenty of the code myself: chatbot UIs, GenAI dashboards and the performance work nobody notices until it’s missing.' },
+    { q: 'What are you strongest at?', a: 'Turning “why is this so slow?” into “oh, that was fast.” Then keeping it that way with tests and monitoring, so it stays solved.' },
+    { q: 'Which roles are you looking for?', a: 'Frontend or full-stack roles where I own the UI end to end. Bonus points if there’s AI in the product. Extra bonus points if it’s slow right now.' },
+    { q: 'Where are you based?', a: 'Bengaluru. Open to remote, hybrid or on-site. Traffic permitting.' },
+    { q: 'How soon can you join?', a: 'As soon as my notice period allows. I’ll have read your codebase before day one.' },
+    { q: 'How do you work with design and product?', a: 'Early and often. I’d rather question a spec on day one than rebuild it on day ten. Designers get pixel-perfect; PMs get no surprises.' },
   ],
 }
 
 export const verdict = {
-  label: 'the verdict',
+  label: 'The verdict',
   title: 'Case closed?',
-  lead: 'all the evidence points one way.',
-  sub: 'the fastest way to close this case: say hi. i reply to every message, usually within a day.',
-  stamp: 'hire him',
+  lead: 'The evidence is in. The jury is you.',
+  sub: 'Email me about the role or the problem. I reply to every message, usually within a day, faster if it’s a hard problem.',
+  stamp: 'Hire him',
   bigWord: 'CASE CLOSED',
 }
 
 export const nav = [
-  { label: 'about', href: '/about' },
-  { label: 'experience', href: '/experience' },
-  { label: 'projects', href: '/projects' },
-  { label: 'skills', href: '/skills' },
-  { label: 'contact', href: '/contact' },
+  { label: 'About', href: '/about' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Contact', href: '/contact' },
 ]
+
+// The mystery: five clues hidden around the site, one per section. Find them all, then make the accusation.
+export const mystery = {
+  title: 'Case #001: the engineer who keeps making things fast',
+  clues: [
+    { id: 'coffee', section: 'about', icon: 'coffee', label: 'A coffee ring on the file', fact: 'Coffee ring on the file. Someone reviews every pull request closely, at all hours.', hint: 'Check the suspect’s file. Somebody left a mug on it.' },
+    { id: 'ticket', section: 'experience', icon: 'ticket', label: 'A train ticket on the trail', fact: 'Train ticket: Skillvalley → Kapture CX → SDE II. Three stops, one direction: up.', hint: 'Follow the trail. Travellers drop things.' },
+    { id: 'print', section: 'projects', icon: 'print', label: 'A fingerprint on an exhibit', fact: 'Fingerprints match a chatbot kept fast for 5 million users at rush hour.', hint: 'Dust the exhibits for prints.' },
+    { id: 'note', section: 'skills', icon: 'note', label: 'A torn note among the tools', fact: 'Torn note: “React, TypeScript, AI. Make it fast. Make it simple.” Handwriting matches.', hint: 'Something is tucked between the evidence bags.' },
+    { id: 'key', section: 'contact', icon: 'key', label: 'An old key near the verdict', fact: 'A key. It opens one door: the inbox. Replies usually within a day.', hint: 'The last clue is near the verdict.' },
+  ],
+  question: 'Who is behind all five clues?',
+  answers: [
+    { id: 'bharat', label: 'Bharat Goyal, frontend & AI engineer', correct: true },
+    { id: 'intern', label: 'The intern', reply: 'The intern has an alibi: he was waiting for the build. Try again.' },
+    { id: 'cat', label: 'A suspiciously fast cat', reply: 'Fast, yes. But cats don’t write tests. Try again.' },
+  ],
+  solved: 'Case solved. The suspect is Bharat Goyal, and he’s open to work.',
+}
+
+// Detective-and-developer one-liners, for the "Tell me a joke" button (and Inspector Byte, if asked).
+export const jokes = [
+  'Why did the frontend developer go broke? He used up all his cache.',
+  'I asked the detective how he solves cases so fast. He said: “I just console.log the suspects.”',
+  'The bug pleaded not guilty. Unfortunately, the stack trace had fingerprints all over it.',
+  'Why don’t detectives trust CSS? Too many things go missing without a trace.',
+  'A slow website walks into a police station. The officer says, “We’ll get back to you… eventually.”',
+  'What do you call a detective who only works on front ends? A div-ective.',
+  'The case went cold. So I added a loading spinner and called it a feature.',
+  '“Where were you on the night of the deploy?” “In production, officer. Unfortunately.”',
+]
+
+// The plain 30-second summary for recruiters in a hurry (no theme, no puns).
+export const summary = {
+  title: 'Bharat Goyal, Frontend & AI Engineer',
+  line: 'SDE II (Frontend) at Kapture CX, Bengaluru. 3+ years building React and TypeScript products; leads a team of 3.',
+  wins: [
+    'Cut client chatbot delivery from 2–3 weeks to about 2 days with a prompt-driven UI workflow.',
+    'Kept a chatbot used by 5M+ people a month fast at peak traffic (profiling, code-splitting, smaller bundles).',
+    'Built and shipped ForgeFit, an AI fitness coach with real-time voice and on-device pose tracking.',
+  ],
+  stack: 'React · TypeScript · Next.js · Redux · Node.js · MongoDB · LLM integration · GCP',
+  where: 'Bengaluru, India · open to remote, hybrid or on-site · available after notice period',
+}

@@ -1,11 +1,13 @@
 import { tools } from '../content.js'
 import { Chapter, EvidenceTag, Paper, Reveal } from '../ds/index.jsx'
+import Clue from '../components/Clue.jsx'
 
 const TILTS = [-1.5, 1.2, -0.8, 1.6]
 
 export default function Tools() {
   return (
     <section className="cf-section tools" id="skills">
+      <Clue id="note" />
       <div className="cf-wrap">
         <Chapter n="04" label={tools.label} title={tools.title} sub={tools.sub} />
         <div className="tools-grid">

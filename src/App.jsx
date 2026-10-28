@@ -4,8 +4,12 @@ import Bats from './components/Bats.jsx'
 import Nav from './components/Nav.jsx'
 import Cursor from './components/Cursor.jsx'
 import CrimeTape from './components/CrimeTape.jsx'
-import Envelope from './components/Envelope.jsx'
-import Inspector from './components/Inspector.jsx'
+import InspectorLoader from './components/InspectorLoader.jsx'
+import EmailToast from './components/EmailToast.jsx'
+import IncomingCall from './components/IncomingCall.jsx'
+import CaseNotebook from './components/CaseNotebook.jsx'
+import RecruiterCard from './components/RecruiterCard.jsx'
+import { initAnalytics } from './lib/analytics.js'
 import ColdOpen from './sections/ColdOpen.jsx'
 import Suspect from './sections/Suspect.jsx'
 import Trail from './sections/Trail.jsx'
@@ -16,6 +20,7 @@ import Interrogation from './sections/Interrogation.jsx'
 import Verdict from './sections/Verdict.jsx'
 import { ScrollTrigger, onReady } from './lib/motion.js'
 import { useSectionScroll } from './lib/sectionRoutes.js'
+import { resumeOnGesture } from './lib/sound.js'
 
 export default function App() {
   useSectionScroll() // /skills, /projects… scroll to their section
@@ -25,6 +30,8 @@ export default function App() {
     document.fonts?.ready.then(() => ScrollTrigger.refresh())
     onReady(() => ScrollTrigger.refresh())
   }, [])
+  useEffect(() => resumeOnGesture(), [])
+  useEffect(() => initAnalytics(), [])
 
   return (
     <>
@@ -43,8 +50,11 @@ export default function App() {
         <Interrogation />
         <Verdict />
       </main>
-      <Envelope />
-      <Inspector />
+      <InspectorLoader />
+      <EmailToast />
+      <IncomingCall />
+      <CaseNotebook />
+      <RecruiterCard />
       <Cursor />
     </>
   )

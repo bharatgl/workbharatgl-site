@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { duck } from './sound.js'
 
 // Live voice conversation with Inspector Byte over Gemini Live, same architecture as ForgeFit's live coach:
 // a one-use token from /api/live-token, then a raw WebSocket straight to Gemini (speech in, speech out),
@@ -112,6 +113,7 @@ export default function useLiveCall({ onTurn } = {}) {
   }
 
   const teardown = useCallback(() => {
+    duck(false) // bring the ambience back
     const c = s.current
     if (c.bot && !c.botDone) commit('assistant', c.bot)
     if (c.user && !c.userDone) commit('user', c.user)
@@ -122,7 +124,7 @@ export default function useLiveCall({ onTurn } = {}) {
     c.stream?.getTracks().forEach((t) => t.stop())
     if (c.ws) {
       c.ws.onmessage = c.ws.onclose = c.ws.onerror = null
-      if (c.ws.readyState < WebSocket.CLOSING) c.ws.close(1000, 'call ended')
+      if (c.ws.readyState < WebSocket.CLOSING) c.ws.close(1000, 'Call ended')
     }
     c.ctx?.close().catch(() => {})
     s.current = {}
@@ -141,11 +143,13 @@ export default function useLiveCall({ onTurn } = {}) {
     return () => document.removeEventListener('visibilitychange', onHide)
   }, [teardown])
 
+  const endReason = useRef('') // why the last call ended, for the call logs
   const end = useCallback(
     (reason) => {
+      endReason.current = reason || 'hang_up'
       // after a spoken goodbye there's nothing to explain; only unexpected endings get a note
-      if (reason === 'dropped') setError('the line dropped. tap call him again to keep talking.')
-      else if (reason === 'failed') setError('couldn’t get him on the line. you can still type below.')
+      if (reason === 'dropped') setError('The line dropped. Tap call him again to keep talking.')
+      else if (reason === 'failed') setError('Couldn’t get him on the line. You can still type below.')
       teardown()
     },
     [teardown]
@@ -313,12 +317,14 @@ export default function useLiveCall({ onTurn } = {}) {
   /** Start a call. Must be called from a click (audio + mic permissions). Resolves false if live voice isn't reachable. */
   const start = useCallback(async ({ firstText = '', history = [] } = {}) => {
     if (s.current.ws || status !== 'off') return true
+    endReason.current = ''
     setError('')
     setBotText('')
     setUserText('')
     const AC = window.AudioContext || window.webkitAudioContext
     if (!AC || !window.WebSocket) return false
     setStatus('connecting')
+    duck(true) // quiet the ambience so it never talks over the call
     // create audio contexts inside the click so browsers allow sound
     const c = (s.current = { sources: new Set(), nextTime: 0, bot: '', user: '', firstText: typeof firstText === 'string' ? firstText.trim() : '', history: history.slice(-HISTORY_TURNS), lastActivity: Date.now() })
     // one context at the device's own rate for mic and playback, like ForgeFit: Chrome then routes his voice
@@ -338,7 +344,7 @@ export default function useLiveCall({ onTurn } = {}) {
           ? navigator.mediaDevices
               .getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 } })
               .catch((e) => {
-                micIssue = e?.name === 'NotFoundError' ? 'no microphone found' : 'your mic is blocked'
+                micIssue = e?.name === 'NotFoundError' ? 'No microphone found' : 'Your mic is blocked'
                 return null
               })
           : null,
@@ -348,13 +354,13 @@ export default function useLiveCall({ onTurn } = {}) {
       if (!tokRes.ok) {
         teardown()
         if (tokRes.status === 429) {
-          setError('he’s on a lot of calls right now. try again in a few minutes, or type below.')
+          setError('He’s on a lot of calls right now. Try again in a few minutes, or type below.')
           return true
         }
         return false
       }
       const tok = await tokRes.json()
-      if (micIssue) setError(`${micIssue}, so type below. he’ll still answer out loud.`)
+      if (micIssue) setError(`${micIssue}, so type below. He’ll still answer out loud.`)
 
       // mic graph (routed through a muted gain so the worklet keeps running)
       if (stream) {
@@ -473,5 +479,5 @@ export default function useLiveCall({ onTurn } = {}) {
     return true
   }, [])
 
-  return { status, botText, userText, speaking, mouth, muted, setMuted, secondsLeft, error, setError, start, end, sendText, debug }
+  return { status, botText, userText, speaking, mouth, muted, setMuted, secondsLeft, error, setError, start, end, sendText, debug, endReason }
 }

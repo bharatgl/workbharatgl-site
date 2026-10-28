@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { nav, site } from '../content.js'
 import { onReady } from './motion.js'
+import { pageTurn } from './sound.js'
 
 export const SECTIONS = nav.map((n) => n.href.slice(1))
 export const pathFor = (id) => (id && id !== 'top' ? `/${id}` : '/')
@@ -26,6 +27,7 @@ export function useGoTo() {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
       e.preventDefault()
       after?.()
+      pageTurn()
       navigate(pathFor(id), { state: { scroll: true } })
     },
     [navigate]

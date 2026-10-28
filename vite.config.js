@@ -8,7 +8,7 @@ function localApi() {
   return {
     name: 'local-api',
     configureServer(server) {
-      for (const name of ['ask', 'live-token']) {
+      for (const name of ['ask', 'live-token', 'call-log']) {
         server.middlewares.use(`/api/${name}`, async (req, res) => {
           try {
             const mod = await server.ssrLoadModule(`/api/${name}.js`)

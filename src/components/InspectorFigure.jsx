@@ -40,7 +40,7 @@ export default function InspectorFigure({ mouth = 'rest', mood = 'idle', look = 
         {/* badge */}
         <g transform="translate(196 322)">
           <path d="M0 -15 L13 -8 L13 6 L0 14 L-13 6 L-13 -8 Z" fill="#ffd23f" stroke="#a87b0b" strokeWidth="2" />
-          <text y="4.5" textAnchor="middle" fontFamily="Anton, Impact, sans-serif" fontSize="12" fill="#5a3f00">BG</text>
+          <text y="4.5" textAnchor="middle" fontFamily="Bebas Neue, Arial Narrow, sans-serif" fontSize="12" fill="#5a3f00">BG</text>
         </g>
         {/* buttons */}
         <circle cx="150" cy="364" r="3" fill="#ffd23f" />
@@ -119,7 +119,7 @@ export default function InspectorFigure({ mouth = 'rest', mood = 'idle', look = 
           </g>
           <path d="M84 132 C112 150 188 150 216 132 L218 140 C190 160 110 160 82 140 Z" fill="#0d1526" />
           <path d="M150 74 L166 83 L166 101 L150 110 L134 101 L134 83 Z" fill="#ffd23f" stroke="#a87b0b" strokeWidth="2.5" />
-          <text x="150" y="98" textAnchor="middle" fontFamily="Anton, Impact, sans-serif" fontSize="15" fill="#5a3f00">BG</text>
+          <text x="150" y="98" textAnchor="middle" fontFamily="Bebas Neue, Arial Narrow, sans-serif" fontSize="15" fill="#5a3f00">BG</text>
         </g>
       </g>
     </svg>
