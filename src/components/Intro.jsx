@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { intro } from '../content.js'
 import { READY_EVENT, reducedMotion } from '../lib/motion.js'
-import { releaseBats } from './Bats.jsx'
+import { releaseEvidence } from './EvidenceBurst.jsx'
 
 const SEEN = 'cf-intro-seen'
 
@@ -33,7 +33,7 @@ export default function Intro() {
       if (opened) return
       opened = true
       ready()
-      releaseBats(window.innerWidth / 2, window.innerHeight * 0.45, 26)
+      releaseEvidence(window.innerWidth / 2, window.innerHeight * 0.45, 26)
       try {
         sessionStorage.setItem(SEEN, '1')
       } catch {}

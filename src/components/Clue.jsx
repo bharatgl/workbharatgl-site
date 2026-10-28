@@ -1,6 +1,6 @@
 import { mystery } from '../content.js'
 import { findClue, useCase } from '../lib/caseGame.js'
-import { releaseBats } from './Bats.jsx'
+import { releaseEvidence } from './EvidenceBurst.jsx'
 
 export const CLUE_EVENT = 'cf:clue'
 
@@ -53,7 +53,7 @@ export default function Clue({ id, className = '' }) {
   const bag = (e) => {
     e.stopPropagation()
     if (!findClue(id)) return
-    releaseBats(e.clientX, e.clientY, 10)
+    releaseEvidence(e.clientX, e.clientY, 10)
     window.dispatchEvent(new CustomEvent(CLUE_EVENT, { detail: { id } }))
   }
   return (

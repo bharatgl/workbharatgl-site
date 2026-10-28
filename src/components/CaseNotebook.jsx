@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { mystery, site } from '../content.js'
 import { allFound, caseTime, resetCase, solveCase, totalClues, useCase, wrongAccusation } from '../lib/caseGame.js'
 import { track } from '../lib/analytics.js'
-import { releaseBats } from './Bats.jsx'
+import { releaseEvidence } from './EvidenceBurst.jsx'
 import { CLUE_EVENT } from './Clue.jsx'
 import { copyEmail } from './EmailToast.jsx'
 
@@ -48,7 +48,7 @@ export default function CaseNotebook() {
     if (a.correct) {
       setReply('')
       solveCase()
-      releaseBats(e.clientX, e.clientY, 26)
+      releaseEvidence(e.clientX, e.clientY, 26)
     } else {
       wrongAccusation(a.id)
       setReply(a.reply)

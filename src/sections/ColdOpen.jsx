@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import RedString from '../components/RedString.jsx'
-import { releaseBats } from '../components/Bats.jsx'
+import { releaseEvidence } from '../components/EvidenceBurst.jsx'
 import { hero, site } from '../content.js'
 import { Button, HandNote, Paper, Polaroid, Sticky } from '../ds/index.jsx'
 import { onReady, reducedMotion } from '../lib/motion.js'
@@ -111,7 +111,7 @@ export default function ColdOpen() {
   useEffect(() => onReady(() => ref.current?.classList.add('in')), [])
   const tap = (e) => {
     if (e.target.closest('a, button')) return
-    releaseBats(e.clientX, e.clientY, 12)
+    releaseEvidence(e.clientX, e.clientY, 12)
   }
   return (
     <section className="co" id="top" ref={ref} onClick={tap}>
@@ -160,7 +160,7 @@ export default function ColdOpen() {
           </div>
         </div>
       </RedString>
-      <p className="co-hint cf-label" aria-hidden="true">Psst: tap the board. The bats live here.</p>
+      <p className="co-hint cf-label" aria-hidden="true">Psst: tap the board. Everything here is evidence.</p>
     </section>
   )
 }

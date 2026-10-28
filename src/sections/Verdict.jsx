@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { releaseBats } from '../components/Bats.jsx'
+import { releaseEvidence } from '../components/EvidenceBurst.jsx'
 import Roll from '../components/Roll.jsx'
 import { site, verdict } from '../content.js'
 import { Button, Chapter, Stamp } from '../ds/index.jsx'
@@ -33,7 +33,7 @@ export default function Verdict() {
   const signal = (e) => {
     copyEmail(site.email)
     const r = e.currentTarget.getBoundingClientRect()
-    releaseBats(r.left + r.width / 2, r.top, 18)
+    releaseEvidence(r.left + r.width / 2, r.top, 18)
   }
 
   // The giant footer word unfolds letter by letter as the page bottoms out.

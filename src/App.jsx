@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Intro from './components/Intro.jsx'
-import Bats from './components/Bats.jsx'
+import EvidenceBurst from './components/EvidenceBurst.jsx'
 import Nav from './components/Nav.jsx'
 import Cursor from './components/Cursor.jsx'
 import CrimeTape from './components/CrimeTape.jsx'
@@ -36,7 +36,7 @@ export default function App() {
   return (
     <>
       <Intro />
-      <Bats />
+      <EvidenceBurst />
       <Nav />
       <main>
         <ColdOpen />
