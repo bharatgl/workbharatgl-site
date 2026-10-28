@@ -16,7 +16,7 @@ const INTENTS = [
     id: 'greet',
     keys: ['hi', 'hello', 'hey', 'yo', 'namaste', 'good morning', 'good evening', 'who are you', 'sup'],
     weak: true,
-    answer: () => 'evening, detective. i keep the file on Bharat Goyal, a frontend & AI engineer in Bengaluru. ask me about his experience, projects, stack, or how to reach him.',
+    answer: () => 'evening, detective. i keep the file on Bharat Goyal, a full-stack & AI engineer in Bengaluru. ask me about his experience, projects, stack, or how to reach him.',
   },
   {
     id: 'about',
@@ -74,7 +74,7 @@ const INTENTS = [
   {
     id: 'lead',
     keys: ['lead', 'leadership', 'manage', 'team', 'mentor', 'senior', 'squad'],
-    answer: () => 'Yes, he leads a team of 3 frontend engineers at Kapture CX: technical direction, sprint planning, code reviews and mentoring.',
+    answer: () => 'Yes, he leads a team of 3 engineers at Kapture CX: technical direction, sprint planning, code reviews and mentoring.',
   },
   {
     id: 'open',

@@ -1,6 +1,6 @@
 // Everything Inspector knows about Bharat, built from content.js so it never drifts
 // from the site. Used by the AI endpoint (as its "case file") and by the offline engine.
-import { site, about, trail, evidence, tools, interrogation, instagram } from '../content.js'
+import { site, about, trail, evidence, tools, interrogation, instagram, architecture } from '../content.js'
 
 export const INSPECTOR = {
   name: 'Inspector Byte',
@@ -24,7 +24,7 @@ export function caseFile() {
   return `NAME: ${site.name}
 ROLE: ${site.role}
 LOCATION: ${site.location}
-OPEN TO WORK: ${site.openToWork ? 'Yes, frontend / full-stack / AI engineering roles; remote, hybrid or on-site' : 'Not right now'}
+OPEN TO WORK: ${site.openToWork ? 'Yes, full-stack, product-engineering and AI engineering roles; remote, hybrid or on-site' : 'Not right now'}
 CONTACT: email ${site.email}; résumé at /resume.pdf on this site
 
 QUICK FACTS
@@ -41,6 +41,9 @@ ${projects}
 
 SKILLS
 ${skills}
+
+HOW THINGS ARE BUILT (use for system design and architecture questions)
+${architecture.map((a) => `- ${a}`).join('\n')}
 
 ON THE RECORD (FAQ)
 ${faq}

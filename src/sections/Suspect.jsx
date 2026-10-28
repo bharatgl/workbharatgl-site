@@ -25,7 +25,7 @@ export default function Suspect() {
               <img src={site.photo} alt={`${site.name}`} loading="lazy" />
               <figcaption className="mug-board">
                 <span className="cf-display">{site.name}</span>
-                <span className="cf-label">Frontend & AI · BLR · 2026</span>
+                <span className="cf-label">Full-stack & AI · BLR · 2026</span>
               </figcaption>
             </figure>
           </Reveal>

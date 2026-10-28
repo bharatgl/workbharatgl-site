@@ -11,3 +11,7 @@ dist
 
 # firebase local state
 .firebase
+
+# private work notes: client names, internal details (never publish)
+WORK_INVENTORY.md
+office-work/

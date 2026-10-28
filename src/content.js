@@ -2,7 +2,7 @@
 // Voice: sentence case, plain and confident, with a dry detective-case-file humour. Headings stay plain for recruiters.
 export const site = {
   name: 'Bharat Goyal',
-  role: 'Frontend & AI Engineer',
+  role: 'Full-Stack & AI Engineer',
   location: 'Bengaluru, India',
   email: 'goyalbharat9977@gmail.com',
   resume: '/resume.pdf',
@@ -14,7 +14,7 @@ export const site = {
   openToWork: true,
 }
 
-export const tape = ['Case #001 is open', 'Frontend & AI engineer', 'Wanted: by recruiters', 'Last seen in Bengaluru', 'Do not cross: slow code']
+export const tape = ['Case #001 is open', 'Full-stack & AI engineer', 'Wanted: by recruiters', 'Last seen in Bengaluru', 'Do not cross: slow code']
 
 export const intro = {
   file: 'Case file #001',
@@ -23,13 +23,13 @@ export const intro = {
 }
 
 export const hero = {
-  sticky: 'New case. Prime suspect: a frontend engineer who keeps making things faster. Motive unclear.',
+  sticky: 'New case. Prime suspect: a full-stack engineer who keeps making things faster. Motive unclear.',
   headline: ['BHARAT', 'GOYAL.'],
-  role: 'Frontend & AI engineer. I make slow things fast, messy things simple, and loading spinners nervous.',
+  role: 'Full-stack engineer with an AI habit. I make slow things fast, messy things simple, and loading spinners nervous.',
   clipping: {
     paper: 'The City Gazette · late edition',
     title: 'Local engineer turns 3 weeks into 2 days',
-    body: 'Sources confirm a Bengaluru frontend engineer has been quietly making products faster for 5M+ people. Loading spinners are reportedly “out of work”. Police have no leads. Recruiters do.',
+    body: 'Sources confirm a Bengaluru engineer has been quietly making products faster for 5M+ people. Loading spinners are reportedly “out of work”. Police have no leads. Recruiters do.',
   },
   polaroid: 'The suspect',
   note: 'This one ships.',
@@ -44,14 +44,14 @@ export const about = {
   leadMark: 'favourite kind of case.',
   body: [
     'I’ve turned three-week client builds into two-day ones and kept a chatbot fast for 5 million people at rush hour (rush hour did not enjoy it). I lead a team of three engineers and still review every pull request like it owes me money.',
-    'Bring me the problem, not the ticket. I test on real phones, real data and real bad Wi-Fi before I call anything done, because “it works on my machine” has never once been a valid alibi.',
+    'On my own time I build the whole thing, UI to API to deploy: ForgeFit’s Fastify and MongoDB backend, and the voice agent on this page. Bring me the problem, not the ticket. I test on real phones, real data and real bad Wi-Fi before I call anything done, because “it works on my machine” has never once been a valid alibi.',
   ],
   facts: [
     ['Name', 'Bharat Goyal'],
-    ['Occupation', 'SDE II, Frontend · Kapture CX'],
+    ['Occupation', 'Full-stack engineer · SDE II at Kapture CX'],
     ['Active since', '2022 (3+ years)'],
     ['Last seen', 'Bengaluru · open to remote'],
-    ['Known for', 'Speed, ownership, AI features'],
+    ['Known for', 'Speed, ownership, AI products end to end'],
     ['Education', 'B.Tech, GNDEC Punjab'],
   ],
   note: 'Approach with caution. Suspect is armed with a profiler.',
@@ -122,14 +122,35 @@ export const evidence = {
       title: 'The AI coach that talks back',
       org: 'ForgeFit · my own product',
       problem: 'Fitness apps hand everyone the same plan and never listen. Mine talks back. Politely.',
-      did: 'Designed, built and shipped an AI coach: provider-neutral AI layer, structured plans with safety checks, real-time voice and on-device pose tracking.',
+      did: 'Designed, built and shipped an AI coach: a live voice coach with four tools that switches voices instead of hanging up, rep counting that runs on the phone (camera frames never leave it), and AI plans that can’t half-save.',
       result: 'Live',
       resultLabel: 'forgefit.space',
-      stack: ['Next.js', 'TypeScript', 'Fastify', 'MongoDB', 'GCP'],
+      stack: ['Next.js', 'Fastify', 'MongoDB', 'Gemini Live', 'MediaPipe', 'GCP'],
       link: 'https://forgefit.space',
     },
     {
       id: '03',
+      title: 'The plan that can’t half-save',
+      org: 'ForgeFit · my own product',
+      problem: 'AI models return creative JSON, users double-tap “Generate”, and a crash mid-save leaves you with no plan at all.',
+      did: 'Fastify and MongoDB backend: the AI’s output is checked against a schema, a deterministic plan steps in if it fails, a lock stops duplicate runs, and a transaction keeps the old plan until the new one is fully saved.',
+      result: '194',
+      resultLabel: 'Automated tests in the repo',
+      stack: ['Fastify', 'MongoDB', 'zod', 'Gemini', 'Node.js'],
+      link: 'https://forgefit.space',
+    },
+    {
+      id: '04',
+      title: 'The detective on this page',
+      org: 'workbharatgl.online',
+      problem: 'Portfolios are monologues. Recruiters have questions at 11 pm.',
+      did: 'Built Inspector Byte end to end: live voice from the browser to Gemini Live, a small Node API on Cloud Run that hands out single-use tokens (the key never reaches your browser), Claude for typed questions, an offline fallback, usage caps, and a pipeline that deploys and smoke-tests every push.',
+      result: '5 min',
+      resultLabel: 'Max call · 4 calls per 10 min',
+      stack: ['React', 'Node.js', 'Gemini Live', 'Claude', 'Cloud Run', 'GitHub Actions'],
+    },
+    {
+      id: '05',
       title: 'Rush hour at 5 million',
       org: 'Kapture CX',
       problem: 'A chatbot used by 5M+ people a month slowed down exactly when everyone showed up. Classic.',
@@ -139,17 +160,17 @@ export const evidence = {
       stack: ['React', 'Webpack', 'Profiling'],
     },
     {
-      id: '04',
-      title: 'Words into interfaces',
+      id: '06',
+      title: 'The keyboard that ate the chat',
       org: 'Kapture CX',
-      problem: 'Shoppers ask in plain language. Most stores answer with a search box and a shrug.',
-      did: 'Early build of a platform that turns natural-language requests into real UI (comparisons, selection, checkout) using each client’s own components.',
-      result: 'Gen UI',
-      resultLabel: 'In the works',
-      stack: ['React', 'LLMs', 'Generative UI'],
+      problem: 'Support chat inside Android, iOS and Flutter apps for some of India’s biggest consumer brands. The keyboard kept swallowing the input box.',
+      did: 'Fixed the viewport and safe-area handling, added native haptics and an app bridge, a cached typeahead and live date separators, and designed a React + TypeScript rewrite of the legacy widget.',
+      result: '3 platforms',
+      resultLabel: 'Android, iOS & Flutter apps',
+      stack: ['JavaScript', 'XMPP', 'WebView', 'React', 'TypeScript'],
     },
     {
-      id: '05',
+      id: '07',
       title: 'The onboarding heist',
       org: 'Kapture CX',
       problem: 'Every enterprise customer needed custom screens, so onboarding moved at the speed of paperwork.',
@@ -159,7 +180,7 @@ export const evidence = {
       stack: ['React', 'Redux', 'Sentry'],
     },
     {
-      id: '06',
+      id: '08',
       title: 'Operation Kanoo',
       org: 'Kapture CX',
       problem: 'Performance-critical enterprise screens loaded slowly enough to make tea in between.',
@@ -168,6 +189,27 @@ export const evidence = {
       resultLabel: 'Faster page loads',
       stack: ['React', 'TypeScript', 'Webpack'],
     },
+    {
+      id: '09',
+      title: 'Words into interfaces',
+      org: 'Kapture CX',
+      problem: 'Shoppers ask in plain language. Most stores answer with a search box and a shrug.',
+      did: 'Early build of a platform that turns natural-language requests into real UI (comparisons, selection, checkout) using each client’s own components.',
+      result: 'Gen UI',
+      resultLabel: 'In the works',
+      stack: ['React', 'LLMs', 'Generative UI'],
+    },
+    // Held back until Bharat confirms how to frame agent-written work (WORK_INVENTORY.md, Q1):
+    // {
+    //   id: '08',
+    //   title: 'The agent squad',
+    //   org: 'Splitlink & KagazFlow · my own products',
+    //   problem: 'One engineer, two product ideas, no spare month. A classic understaffed precinct.',
+    //   did: 'Wrote the specs and architecture, then directed coding agents across parallel git branches, held to tests and CI checks: an offline-first expense-splitting app and a document-reconciliation prototype for accounting firms.',
+    //   result: '357',
+    //   resultLabel: 'Agent commits in 8 days',
+    //   stack: ['Codex', 'Git worktrees', 'Expo', 'Next.js', 'Supabase'],
+    // },
   ],
 }
 
@@ -177,9 +219,9 @@ export const tools = {
   sub: 'Tools recovered from the scene. Fingerprints confirmed on all of them.',
   groups: [
     { name: 'Frontend', items: ['React', 'TypeScript', 'JavaScript', 'Next.js', 'Redux', 'Tailwind', 'Material UI', 'Performance'] },
-    { name: 'Backend & cloud', items: ['Node.js', 'Fastify', 'REST', 'GraphQL', 'WebSockets', 'MongoDB', 'SQL', 'Docker', 'GCP'] },
-    { name: 'AI', items: ['LLM integration', 'Structured outputs', 'AI safety checks', 'Voice UIs'] },
-    { name: 'How I work', items: ['DSA', 'Jest', 'CI/CD', 'Webpack', 'Sentry', 'Accessibility', 'Micro-frontends', 'Team lead'] },
+    { name: 'Backend & cloud', items: ['Node.js', 'Fastify', 'REST', 'GraphQL', 'WebSockets', 'MongoDB', 'SQL', 'Docker', 'GCP Cloud Run', 'GitHub Actions'] },
+    { name: 'AI', items: ['LLM integration', 'Structured outputs', 'AI safety checks', 'Real-time voice', 'On-device vision', 'Coding agents'] },
+    { name: 'How I work', items: ['Jest', 'CI/CD', 'Webpack', 'Sentry', 'Accessibility', 'Micro-frontends', 'Team lead'] },
   ],
 }
 
@@ -220,9 +262,9 @@ export const interrogation = {
   title: 'Questions, answered',
   sub: 'The usual questions. No lawyer requested.',
   qa: [
-    { q: 'What do you do day to day?', a: 'I lead three frontend engineers at Kapture CX and still write plenty of the code myself: chatbot UIs, GenAI dashboards and the performance work nobody notices until it’s missing.' },
+    { q: 'What do you do day to day?', a: 'I lead three engineers at Kapture CX and still write plenty of the code myself: chatbot UIs, GenAI dashboards and the performance work nobody notices until it’s missing. Outside work I build full products, backend included.' },
     { q: 'What are you strongest at?', a: 'Turning “why is this so slow?” into “oh, that was fast.” Then keeping it that way with tests and monitoring, so it stays solved.' },
-    { q: 'Which roles are you looking for?', a: 'Frontend or full-stack roles where I own the UI end to end. Bonus points if there’s AI in the product. Extra bonus points if it’s slow right now.' },
+    { q: 'Which roles are you looking for?', a: 'Full-stack or product-engineering roles where I own features end to end, from the UI to the API. Bonus points if there’s AI in the product. Extra bonus points if it’s slow right now.' },
     { q: 'Where are you based?', a: 'Bengaluru. Open to remote, hybrid or on-site. Traffic permitting.' },
     { q: 'How soon can you join?', a: 'As soon as my notice period allows. I’ll have read your codebase before day one.' },
     { q: 'How do you work with design and product?', a: 'Early and often. I’d rather question a spec on day one than rebuild it on day ten. Designers get pixel-perfect; PMs get no surprises.' },
@@ -253,12 +295,12 @@ export const mystery = {
     { id: 'coffee', section: 'about', icon: 'coffee', label: 'A coffee ring on the file', fact: 'Coffee ring on the file. Someone reviews every pull request closely, at all hours.', hint: 'Check the suspect’s file. Somebody left a mug on it.' },
     { id: 'ticket', section: 'experience', icon: 'ticket', label: 'A train ticket on the trail', fact: 'Train ticket: Skillvalley → Kapture CX → SDE II. Three stops, one direction: up.', hint: 'Follow the trail. Travellers drop things.' },
     { id: 'print', section: 'projects', icon: 'print', label: 'A fingerprint on an exhibit', fact: 'Fingerprints match a chatbot kept fast for 5 million users at rush hour.', hint: 'Dust the exhibits for prints.' },
-    { id: 'note', section: 'skills', icon: 'note', label: 'A torn note among the tools', fact: 'Torn note: “React, TypeScript, AI. Make it fast. Make it simple.” Handwriting matches.', hint: 'Something is tucked between the evidence bags.' },
+    { id: 'note', section: 'skills', icon: 'note', label: 'A torn note among the tools', fact: 'Torn note: “React, Node, AI. Make it fast. Make it simple.” Handwriting matches.', hint: 'Something is tucked between the evidence bags.' },
     { id: 'key', section: 'contact', icon: 'key', label: 'An old key near the verdict', fact: 'A key. It opens one door: the inbox. Replies usually within a day.', hint: 'The last clue is near the verdict.' },
   ],
   question: 'Who is behind all five clues?',
   answers: [
-    { id: 'bharat', label: 'Bharat Goyal, frontend & AI engineer', correct: true },
+    { id: 'bharat', label: 'Bharat Goyal, full-stack & AI engineer', correct: true },
     { id: 'intern', label: 'The intern', reply: 'The intern has an alibi: he was waiting for the build. Try again.' },
     { id: 'cat', label: 'A suspiciously fast cat', reply: 'Fast, yes. But cats don’t write tests. Try again.' },
   ],
@@ -277,15 +319,24 @@ export const jokes = [
   '“Where were you on the night of the deploy?” “In production, officer. Unfortunately.”',
 ]
 
+// How things are built, for Inspector Byte's "system design" answers. Only facts from the code.
+export const architecture = [
+  'ForgeFit: Next.js front end calls the API through a same-origin proxy that signs a 5-minute token; the Fastify API checks issuer, audience and subject. Modular monolith with domain modules, a separate AI package and shared types.',
+  'ForgeFit data: MongoDB. Plan generation uses a TTL lock against duplicate runs and a transaction so the old plan is archived only after the new one is saved; workout updates use optimistic concurrency.',
+  'ForgeFit AI: provider-neutral layer (Gemini, OpenAI, Anthropic), schema-checked output with a deterministic fallback, a safety check before any model call. Live voice uses single-use, model-locked tokens and fails over to a second voice provider after 3 failed reconnects. Rep counting runs on the phone with MediaPipe; only rep events reach the API.',
+  'ForgeFit deploy: GitHub Actions runs typecheck, lint, tests and build, then deploys to GCP with no stored keys and smoke-tests production.',
+  'This site: static React site on Firebase Hosting CDN; /api goes to a Node service on Cloud Run (scales to zero, max 5 instances). The API hands out single-use Gemini Live tokens so the key never reaches the browser; audio flows browser to Gemini directly. Rate limits and call caps protect it. Every push deploys and smoke-tests itself.',
+]
+
 // The plain 30-second summary for recruiters in a hurry (no theme, no puns).
 export const summary = {
-  title: 'Bharat Goyal, Frontend & AI Engineer',
-  line: 'SDE II (Frontend) at Kapture CX, Bengaluru. 3+ years building React and TypeScript products; leads a team of 3.',
+  title: 'Bharat Goyal, Full-Stack & AI Engineer',
+  line: 'SDE II at Kapture CX, Bengaluru. 3+ years building React, TypeScript and Node products; leads a team of 3.',
   wins: [
     'Cut client chatbot delivery from 2–3 weeks to about 2 days with a prompt-driven UI workflow.',
     'Kept a chatbot used by 5M+ people a month fast at peak traffic (profiling, code-splitting, smaller bundles).',
-    'Built and shipped ForgeFit, an AI fitness coach with real-time voice and on-device pose tracking.',
+    'Built and shipped ForgeFit end to end: Next.js, a Fastify and MongoDB API, a real-time voice coach and rep counting that runs on the phone.',
   ],
-  stack: 'React · TypeScript · Next.js · Redux · Node.js · MongoDB · LLM integration · GCP',
+  stack: 'React · TypeScript · Next.js · Node.js · Fastify · MongoDB · LLM integration · GCP',
   where: 'Bengaluru, India · open to remote, hybrid or on-site · available after notice period',
 }
